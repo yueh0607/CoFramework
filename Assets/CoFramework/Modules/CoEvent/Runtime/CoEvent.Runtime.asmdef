@@ -1,0 +1,16 @@
+{
+    "name": "CoEvent.Runtime",
+    "rootNamespace": "CoFramework.Events",
+    "references": [
+        "GUID:0cdaf06515f76d847ba59b72bb868663"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
