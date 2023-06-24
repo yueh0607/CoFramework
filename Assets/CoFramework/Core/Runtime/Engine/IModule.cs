@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace CoFramework
 {
+
+    /// <summary>
+    /// 模块接口
+    /// </summary>
     public interface IModule
     {
         /// <summary>
@@ -23,7 +27,7 @@ namespace CoFramework
         /// </summary>
         public void OnDestroy();
 
-        
-
     }
+
+
 }

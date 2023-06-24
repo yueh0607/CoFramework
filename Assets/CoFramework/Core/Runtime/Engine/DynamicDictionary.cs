@@ -1,7 +1,7 @@
 ﻿/********************************************************************************************
  * Date : 2023.1.30
  * Description : 
- * 可顺序遍历且可以随机移除的队列
+ * 可顺序遍历且可以随机移除的队列+字典
  ********************************************************************************************/
 
 
@@ -14,17 +14,16 @@ namespace CoFramework
     {
 
         //队列顺序
-        private readonly Queue<T> queue = new Queue<T>();
+        private readonly Queue<T> queue;
         //实际存储，即时
-        private readonly Dictionary<T, K> dictionary = new Dictionary<T, K>();
+        private readonly Dictionary<T, K> dictionary;
         //临时移除状态
-        private readonly Dictionary<T, int> state = new Dictionary<T, int>();
+        private readonly Dictionary<T, int> state;
 
         /// <summary>
         /// 真正剩余元素数量
         /// </summary>
         public int Count => dictionary.Count;
-
 
         /// <summary>
         /// 遍历出队的次数
@@ -34,7 +33,20 @@ namespace CoFramework
         /// <summary>
         /// 刷新遍历数量，在每次遍历之前都要进行
         /// </summary>
-        public void RefreshTraversalCount() => TraversalCount = queue.Count;
+        public int RefreshTraversalCount() => TraversalCount = queue.Count;
+
+        public DynamicDictionary() 
+        {
+            queue = new Queue<T>();
+            dictionary = new Dictionary<T, K>();
+            state = new Dictionary<T, int>();
+        }
+        public DynamicDictionary(IEqualityComparer<T> equalityComparer)
+        {
+            queue = new Queue<T>();
+            dictionary = new Dictionary<T, K>(equalityComparer);
+            state = new Dictionary<T, int>(equalityComparer);
+        }
 
 
         /// <summary>
@@ -44,11 +56,8 @@ namespace CoFramework
         /// <param name="value"></param>
         public void Enqueue(T key, K value)
         {
-
             if (TryEnqueue(key, value)) return;
             throw new ArgumentException("Same key exists");
-
-
         }
         /// <summary>
         /// 尝试入队
@@ -215,7 +224,10 @@ namespace CoFramework
         }
 
 
-        //-----无序遍历
+        /// <summary>
+        /// -----无序遍历迭代器
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<KeyValuePair<T, K>> GetEnumerator()
         {
             return dictionary.GetEnumerator();

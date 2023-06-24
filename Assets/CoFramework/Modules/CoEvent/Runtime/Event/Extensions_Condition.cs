@@ -12,7 +12,7 @@ namespace CoFramework.Events
             /// 最大对象池缓存数量
             /// </summary>
             public static uint MaxCount { get; set; } = 100;
-            private CoEvent Module { get; set; } = null;
+            private EventModule Module { get; set; } = null;
 
             internal static ConditionMotor Create()
             {
@@ -27,7 +27,7 @@ namespace CoFramework.Events
                 if (pool.Count < ConditionMotor.MaxCount) pool.Enqueue(motor);
             }
 
-            public ConditionMotor() => Module = Framework.GetModule<CoEvent>();
+            public ConditionMotor() => Module = Framework.GetModule<EventModule>();
 
             private void Update(float x)
             {

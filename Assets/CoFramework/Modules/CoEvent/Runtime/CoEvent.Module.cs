@@ -5,7 +5,7 @@ using UnityEngine;
 using CoFramework;
 namespace CoFramework.Events
 {
-    public class CoEvent : IModule
+    public class EventModule : IModule
     {
         //事件容器
         internal Dictionary<Type, CoOperator<ICoEventBase>> container = new Dictionary<Type, CoOperator<ICoEventBase>>();
