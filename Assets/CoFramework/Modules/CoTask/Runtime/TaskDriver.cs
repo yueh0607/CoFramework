@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TaskDriver : MonoBehaviour
+
+namespace CoFramework.Tasks
 {
-    //Intentionally leaving blank
+    public class TaskDriver : MonoBehaviour
+    {
+        //Intentionally leaving blank
+    }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using YooAsset;
+﻿using System.Collections.Generic;
 
 public interface ISpawner<T>
 {
@@ -17,7 +13,7 @@ public interface ISpawner<T>
     public void OnSet(T item);
 
 
-  
+
 }
 
 

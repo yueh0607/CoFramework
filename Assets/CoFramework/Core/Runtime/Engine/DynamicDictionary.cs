@@ -35,7 +35,7 @@ namespace CoFramework
         /// </summary>
         public int RefreshTraversalCount() => TraversalCount = queue.Count;
 
-        public DynamicDictionary() 
+        public DynamicDictionary()
         {
             queue = new Queue<T>();
             dictionary = new Dictionary<T, K>();

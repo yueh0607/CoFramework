@@ -8,10 +8,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CoFramework.Tasks
 {
@@ -133,10 +129,10 @@ namespace CoFramework.Tasks
         /// </summary>
         /// <param name="tasks"></param>
         /// <returns></returns>
-        public static CoTask WaitAny(bool onlySucceed = false,params CoTask[] tasks)
+        public static CoTask WaitAny(bool onlySucceed = false, params CoTask[] tasks)
         {
             if (tasks.Length == 0) throw new InvalidOperationException("Passing in an empty CoTask array is not allowed");
-            static IEnumerator WaitAnyTask(CoTask[] tasks, CoTask task,bool onlySucceed)
+            static IEnumerator WaitAnyTask(CoTask[] tasks, CoTask task, bool onlySucceed)
             {
                 int counter = 0;
                 CoTask firstTask = null;
@@ -167,7 +163,7 @@ namespace CoFramework.Tasks
             }
             CoTask task = CoTask.Create();
             var module = Framework.GetModule<TaskModule>();
-            module.Mono.StartCoroutine(WaitAnyTask(tasks, task,onlySucceed));
+            module.Mono.StartCoroutine(WaitAnyTask(tasks, task, onlySucceed));
             return task;
         }
         /// <summary>
@@ -178,13 +174,13 @@ namespace CoFramework.Tasks
         public static CoTask<T> WaitAny<T>(bool onlySucceed = false, params CoTask<T>[] tasks)
         {
             if (tasks.Length == 0) throw new InvalidOperationException("Passing in an empty CoTask array is not allowed");
-            static IEnumerator WaitAnyTask(CoTask<T>[] tasks, CoTask<T> task,bool onlySucceed)
+            static IEnumerator WaitAnyTask(CoTask<T>[] tasks, CoTask<T> task, bool onlySucceed)
             {
                 int counter = 0;
                 CoTask<T> firstTask = null;
                 Action<CoTask<T>> resultSet = (x) =>
                 {
-                    if(onlySucceed&&x.Status != ETaskStatus.Succeed) return;
+                    if (onlySucceed && x.Status != ETaskStatus.Succeed) return;
                     firstTask ??= x;
                     counter++;
                 };
@@ -210,7 +206,7 @@ namespace CoFramework.Tasks
             }
             CoTask<T> task = CoTask<T>.Create();
             var module = Framework.GetModule<TaskModule>();
-            module.Mono.StartCoroutine(WaitAnyTask(tasks, task,onlySucceed));
+            module.Mono.StartCoroutine(WaitAnyTask(tasks, task, onlySucceed));
             return task;
         }
 
@@ -329,17 +325,11 @@ namespace CoFramework.Tasks
             {
                 while (true)
                 {
-                    if (task.Token.IsCanceld)
+                    if (predicate())
                     {
-                        task.Finish(ETaskStatus.Failed);
+                        task.Finish(ETaskStatus.Succeed);
                         yield break;
                     }
-                    if (task.Token.Authorization)
-                        if (predicate())
-                        {
-                            task.Finish(ETaskStatus.Succeed);
-                            yield break;
-                        }
                     yield return null;
                 }
             }
@@ -348,7 +338,7 @@ namespace CoFramework.Tasks
             await WaitUntilTask(predicate, task);
         }
 
-
+     
 
     }
 }

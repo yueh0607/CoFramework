@@ -45,6 +45,7 @@ namespace CoFramework.Tasks
         /// 阻塞主线程到完成
         /// </summary>
         /// <param name="task"></param>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Wait(this CoTask task)
         {
             TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
@@ -57,6 +58,7 @@ namespace CoFramework.Tasks
         /// <typeparam name="T"></typeparam>
         /// <param name="task"></param>
         /// <returns></returns>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Wait<T>(this CoTask<T> task)
         {
             TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
@@ -104,6 +106,7 @@ namespace CoFramework.Tasks
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task AsTask(this CoTask task)
         {
             TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
@@ -116,6 +119,7 @@ namespace CoFramework.Tasks
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T> AsTask<T>(this CoTask<T> task)
         {
             TaskCompletionSource<T> source = new TaskCompletionSource<T>();
@@ -130,6 +134,7 @@ namespace CoFramework.Tasks
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CoTask AsCoTask(this Task task)
         {
             SynchronizationContext context = SynchronizationContext.Current;
@@ -170,6 +175,7 @@ namespace CoFramework.Tasks
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CoTask<T> AsCoTask<T>(this Task<T> task)
         {
             SynchronizationContext context = SynchronizationContext.Current;

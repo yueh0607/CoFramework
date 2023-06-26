@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace CoFramework
 {
@@ -140,7 +138,7 @@ namespace CoFramework
             if (queue.Count >= GlobalPoolMaxCount) return;
             queue.Enqueue(item);
         }
-     
+
         /// <summary>
         /// 从全局对象池申请，创建为同步，空池触发
         /// </summary>
@@ -149,14 +147,14 @@ namespace CoFramework
         public static object GlobalAllocate(Type type)
         {
             var queue = AddOrGetPool(type);
-            return queue.Count==0?Activator.CreateInstance(type):queue.Dequeue();
+            return queue.Count == 0 ? Activator.CreateInstance(type) : queue.Dequeue();
         }
         /// <summary>
         /// 从全局对象池申请，创建为同步，空池触发
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static T GlobalAllocate<T>()=>(T)GlobalAllocate(typeof(T));
+        public static T GlobalAllocate<T>() => (T)GlobalAllocate(typeof(T));
         /// <summary>
         /// 对全局对象池下达减持命令，可以指定类型，可以指定数量，不指定则为全部
         /// </summary>
@@ -184,16 +182,16 @@ namespace CoFramework
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static void GlobalReduceTo(Type type = null,int count = 1000)
+        public static void GlobalReduceTo(Type type = null, int count = 1000)
         {
-            if(type == null)
-            foreach(var item in pool)
-            {
-                int reduceCount = item.Value.Count - count;
-                if(reduceCount<= 0) continue;
-                GlobalReduce(item.Key, reduceCount);
-            }
-            else if(pool.ContainsKey(type))
+            if (type == null)
+                foreach (var item in pool)
+                {
+                    int reduceCount = item.Value.Count - count;
+                    if (reduceCount <= 0) continue;
+                    GlobalReduce(item.Key, reduceCount);
+                }
+            else if (pool.ContainsKey(type))
             {
                 int reduceCount = pool[type].Count - count;
                 if (reduceCount <= 0) return;

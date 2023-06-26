@@ -1,9 +1,9 @@
-﻿using CoFramework.Events;
+﻿
 using CoFramework.Tasks.Internal;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using UnityEngine.SocialPlatforms;
+
 
 namespace CoFramework.Tasks
 {
@@ -18,12 +18,14 @@ namespace CoFramework.Tasks
         /// <summary>
         /// 任务是否已经完成，与IsDone等同
         /// </summary>
+        [DebuggerHidden]
         public bool IsCompleted => base.IsDone;
 
         /// <summary>
         /// 创建并返回一个CoTask
         /// </summary>
         /// <returns></returns>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CoTask Create()
         {
             CoTask task = Framework.GlobalAllocate<CoTask>();
@@ -34,6 +36,7 @@ namespace CoFramework.Tasks
         /// <summary>
         /// 编编译器调用警告：本方法由编译器生成到用户调用以返回异步结果
         /// </summary>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void GetResult() { }
 
         /// <summary>
@@ -44,6 +47,7 @@ namespace CoFramework.Tasks
         /// <summary>
         /// 编编译器调用警告：本方法由编译器调用以支持await关键字
         /// </summary>
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CoTask GetAwaiter()
         {
             if (OnAwait == null) return this;
@@ -51,14 +55,15 @@ namespace CoFramework.Tasks
             task.OnCompleted += FinishWith;
             return task;
         }
-
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         void INotifyCompletion.OnCompleted(Action continuation) => ((ICriticalNotifyCompletion)this).UnsafeOnCompleted(continuation);
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         void ICriticalNotifyCompletion.UnsafeOnCompleted(Action continuation)
         {
             this.continuation = continuation;
         }
 
-        private Action<CoTask> _callback = null;
+        protected Action<CoTask> _callback = null;
 
         /// <summary>
         /// 在任务完成时被调用
@@ -83,17 +88,22 @@ namespace CoFramework.Tasks
             }
         }
 
-        private Action<CoTask> finishWith = null;
-        public Action<CoTask> FinishWith
-        {
-            get
-            {
-                finishWith ??= (x) => Finish(x.Status);
-                return finishWith;
-            }
-        }
+        //private Action<CoTask> finishWith = null;
 
+        ///// <summary>
+        ///// 通过另一个任务完成该任务
+        ///// </summary>
+        //[DebuggerHidden]
+        //public Action<CoTask> FinishWith
+        //{
+        //    get
+        //    {
+        //        finishWith ??= (x) => Finish(x.Status);
+        //        return finishWith;
+        //    }
+        //}
 
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void OnFinish()
         {
 
@@ -101,7 +111,7 @@ namespace CoFramework.Tasks
             continuation?.Invoke();
         }
 
-
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void OnRecycle()
         {
             _callback = null;
@@ -116,12 +126,15 @@ namespace CoFramework.Tasks
 
     [AsyncMethodBuilder(typeof(CoTaskBuilder<>))]
 
-    public partial class CoTask<T> : CoTask, IAsyncTask<T>, IAsyncTokenProperty
+    public partial class CoTask<T> : CoTaskBase, IAsyncTask<T>, IAsyncTokenProperty
     {
 
+        [DebuggerHidden]
         public T Result { get; set; }
 
         private Action<T> finsh_withResult = null;
+
+        [DebuggerHidden]
         public Action<T> FinishSucceedWithResult
         {
             get
@@ -135,22 +148,29 @@ namespace CoFramework.Tasks
             }
         }
 
-        public static new CoTask<T> Create()
+        public bool IsCompleted => base.IsDone;
+
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static CoTask<T> Create()
         {
             CoTask<T> task = Framework.GlobalAllocate<CoTask<T>>();
             task.BaseAllocate();
             return task;
         }
 
-        public new T GetResult() => Result;
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T GetResult() => Result;
 
 
         /// <summary>
         /// 在任务完成时被调用
         /// </summary>
-        public new event Func<CoTask<T>> OnAwait = null;
 
-        public new CoTask<T> GetAwaiter()
+
+        public event Func<CoTask<T>> OnAwait = null;
+
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public CoTask<T> GetAwaiter()
         {
             if (OnAwait == null) return this;
             var task = OnAwait();
@@ -158,11 +178,14 @@ namespace CoFramework.Tasks
             return task;
         }
 
-        private Action<CoTask<T>> _callback = null; 
+        protected Action<CoTask<T>> _callback = null;
+        private Action continuation=null;
+
         /// <summary>
         /// 在任务完成时被调用
         /// </summary>
-        public new event Action<CoTask<T>> OnCompleted
+
+        public event Action<CoTask<T>> OnCompleted
         {
             add
             {
@@ -182,22 +205,27 @@ namespace CoFramework.Tasks
             }
         }
 
-        private Action<CoTask<T>> finishWith = null;
-        public new Action<CoTask<T>> FinishWith
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected override void OnFinish()
         {
-            get
-            {
-                finishWith ??= (x) => Finish(x.Status);
-                return finishWith;
-            }
+            _callback?.Invoke(this);
+            continuation?.Invoke();
         }
+
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void OnRecycle()
         {
-            base.OnRecycle();
+            base.BaseRecycle();
             Result = default;
         }
 
-
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void INotifyCompletion.OnCompleted(Action continuation) => ((ICriticalNotifyCompletion)this).UnsafeOnCompleted(continuation);
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void ICriticalNotifyCompletion.UnsafeOnCompleted(Action continuation)
+        {
+            this.continuation = continuation;
+        }
     }
 
 
@@ -206,6 +234,7 @@ namespace CoFramework.Tasks
 
     public struct CoTaskCompleted : INotifyCompletion, ICoTask
     {
+        [DebuggerHidden]
         public bool IsCompleted => true;
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void GetResult() { }

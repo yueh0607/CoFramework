@@ -1,31 +1,54 @@
 ﻿using CoFramework;
 using CoFramework.Tasks;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    object x = new();
 
-    IEnumerator WaitTest()
-    {
-        yield return new WaitForSeconds(5);
-        Debug.Log("1");
-    }
+ 
 
     async CoTask AsyncTest()
     {
-        await WaitTest();
-        Debug.Log("2");
+       CoTask<AsyncMonitor.LockHandle> task = AsyncMonitor.Lock(x);
+
+        AsyncMonitor.LockHandle t = await task;
+        if(task.Result==null)
+        {
+            int d = 0;
+        }
+
+        using (t)
+        {
+            await CoTask.Delay(3);
+            Debug.Log("执行");
+        }
+        Debug.Log("Dispose");
+       
+  
     }
 
-    void Start()
+
+    async CoTask<int> TestAsync()
+    {
+        await CoTask.CompletedTask;
+        return 10;
+    }    
+
+    async void Start()
     {
         Framework.CreateModule<TaskModule>(null);
-        AsyncTest().WithToken(out var token);
-        token.Yield();
-        token.Continue();
-        token.Cancel();
+
+        AsyncTest().Forget();
+        AsyncTest().Forget();
+
+
+       // Debug.Log(await TestAsync());
+        //AsyncMonitor.Enter(x);
+
+        //Debug.Log(AsyncMonitor.IsLocked(x));
+
     }
 
 

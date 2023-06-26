@@ -69,41 +69,42 @@ namespace CoFramework.Tasks
             while (!task.IsDone) yield return default;
         }
 
-
     }
 
 
     public static class CoTask2Coroutine
     {
-
-
-
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CoTask GetAwaiter(this IEnumerator enumerator)
         {
-
             static IEnumerator RunEnumerator(IEnumerator _enumerator, CoTask task)
             {
                 while (true)
                 {
-                    while (true)
-                        if (task.Token.Authorization) break;
-                        else yield return null;
-                    if(task.Token.IsCanceld)
-                    {
-                        task.Finish(ETaskStatus.Failed);
-                        yield break;
-                    }
-
+                    
                     if (!_enumerator.MoveNext())
                         break;
-
+                    else
+                    {
+                        while (true)
+                        {
+                            if (task.Token.IsCanceld)
+                            {
+                                task.Finish(ETaskStatus.Failed);
+                                yield break;
+                            }
+                            if (task.Token.Authorization) break;
+                            else yield return null;
+                        }
+                    }
+                    
                     yield return _enumerator.Current;
+                    
                 }
                 task.Finish(ETaskStatus.Succeed);
             }
 
-    
+
             var module = Framework.GetModule<TaskModule>();
             CoTask task = CoTask.Create();
 
@@ -111,10 +112,16 @@ namespace CoFramework.Tasks
 
             return task;
         }
-
-
-
-
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static CoTask GetAwaiter<T>(this T instruction) where T :YieldInstruction
+        {
+            static IEnumerator GetEnumerator(T instruction)
+            {
+                yield return instruction;
+            }
+            var task = GetEnumerator(instruction).GetAwaiter();
+            return task;
+        }
 
     }
 }

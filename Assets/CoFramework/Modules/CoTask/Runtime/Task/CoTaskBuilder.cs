@@ -21,6 +21,7 @@ namespace CoFramework.Tasks
 
 
 
+        [DebuggerHidden]
         public CoTask Task => task;
 
 
@@ -85,10 +86,9 @@ namespace CoFramework.Tasks
 
         private readonly CoTask<T> task;
         // 2. TaskLike Current
-        //[DebuggerHidden]
+        [DebuggerHidden]
         public CoTask<T> Task => task;
 
-        private IAsyncTokenProperty Task_Interface => task;
 
         // 3. Start 构造之后开启状态机
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -110,7 +110,7 @@ namespace CoFramework.Tasks
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetResult(T result)
         {
-            task.Result= result;
+            task.Result = result;
             task.Finish(ETaskStatus.Succeed);
         }
 

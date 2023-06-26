@@ -5,8 +5,6 @@
  * 创建IAsyncTask来统一任务在awaiter标准以外的特殊行为
  */
 
-
-using System;
 namespace CoFramework.Tasks
 {
 
@@ -16,7 +14,7 @@ namespace CoFramework.Tasks
     /// </summary>
     public interface IAsyncTask : ICriticalAwaiter, ICoTask
     {
-       
+
 
     }
     /// <summary>
@@ -25,7 +23,7 @@ namespace CoFramework.Tasks
     /// <typeparam name="T"></typeparam>
     public interface IAsyncTask<T> : ICriticalAwaiter<T>, ICoTask
     {
-    
+
 
 
     }

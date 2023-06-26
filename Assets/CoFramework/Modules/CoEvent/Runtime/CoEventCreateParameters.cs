@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace CoFramework.Events
+﻿namespace CoFramework.Events
 {
     public class CoEventCreateParameters : CreateParameters
     {
@@ -21,6 +17,6 @@ namespace CoFramework.Events
         /// CoEvent自动发布LateUpdate生命周期，如果令该值为true，CoEvent不会派发ILateUpdate事件
         /// </summary>
 
-        public bool CloseLateUpdatePublish { get; set; } = false;  
+        public bool CloseLateUpdatePublish { get; set; } = false;
     }
 }

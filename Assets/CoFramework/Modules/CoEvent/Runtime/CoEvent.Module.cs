@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using CoFramework;
 namespace CoFramework.Events
 {
     public class EventModule : IModule
@@ -46,17 +45,17 @@ namespace CoFramework.Events
             GameObject publisher = new GameObject("[CoEventDriver]");
             GameObject.DontDestroyOnLoad(publisher);
             monoPublisher = publisher.AddComponent<CoEventUpdateDriver>();
-            if(!_params.CloseFixedUpdatePublish)publisher.AddComponent<CoEventFixedUpdateDriver>();
+            if (!_params.CloseFixedUpdatePublish) publisher.AddComponent<CoEventFixedUpdateDriver>();
             if (!_params.CloseLateUpdatePublish) publisher.AddComponent<CoEventLateUpdateDriver>();
             recycleInterval = _params.RecycleInterval;
         }
 
         void IModule.OnUpdate()
         {
-            if(recycleInterval!=-1f)
+            if (recycleInterval != -1f)
             {
                 currentTempDeltaTime += Framework.deltaTime;
-                if(currentTempDeltaTime>=recycleInterval)
+                if (currentTempDeltaTime >= recycleInterval)
                 {
                     currentTempDeltaTime = 0;
                     CoEventGC();

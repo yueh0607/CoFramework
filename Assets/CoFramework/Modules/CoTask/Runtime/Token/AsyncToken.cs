@@ -39,13 +39,14 @@ namespace CoFramework.Tasks
 
         public event Action OnCanceled = null;
         private List<ICancelCallback> callbacks = null;
-
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AddCancelCallback(ICancelCallback callback)
         {
             callbacks ??= new List<ICancelCallback>();
             callbacks.Add(callback);
         }
 
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static AsyncToken Create()
         {
             AsyncToken token = Framework.GlobalAllocate<AsyncToken>();
@@ -53,6 +54,8 @@ namespace CoFramework.Tasks
             token.node = default;
             return token;
         }
+
+        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Recycle(AsyncToken token)
         {
             token.Status = AsyncStatus.Pending;
@@ -65,6 +68,7 @@ namespace CoFramework.Tasks
 
         internal AsyncTreeTokenNode node;
 
+        [DebuggerHidden]
         public AsyncStatus Status { get; private set; } = AsyncStatus.Pending;
 
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -88,8 +92,8 @@ namespace CoFramework.Tasks
             Status = AsyncStatus.Completed;
             node.Cancel();
             OnCanceled?.Invoke();
-            if(callbacks!= null)
-            for (int i = 0; i < callbacks.Count; i++) callbacks[i]?.OnCancel();
+            if (callbacks != null)
+                for (int i = 0; i < callbacks.Count; i++) callbacks[i]?.OnCancel();
         }
 
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]

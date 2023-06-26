@@ -12,7 +12,7 @@ namespace CoFramework.Events
             EventModule module = Framework.GetModule<EventModule>();
             Type type = typeof(EventType);
             if (!module.container.ContainsKey(type)) module.container.Add(type, new CoOperator<ICoEventBase>());
-            CoOperator<ICoEventBase> cop =module.container[type];
+            CoOperator<ICoEventBase> cop = module.container[type];
             return CoUnsafeAs.As<CoOperator<ICoEventBase>, CoOperator<EventType>>(ref cop);
         }
     }

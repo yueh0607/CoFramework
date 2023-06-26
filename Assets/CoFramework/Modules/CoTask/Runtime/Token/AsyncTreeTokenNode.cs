@@ -5,7 +5,6 @@
  * 此类为异步令牌的底层实现，要求形成任务树结构
  */
 
-using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -17,6 +16,7 @@ namespace CoFramework.Tasks.Internal
         /// <summary>
         /// 授权状态，代表当前任务是否被挂起，也决定了状态机是否能够继续前进
         /// </summary>
+        [DebuggerHidden]
         public bool Authorization { get; internal set; } = true;
         /// <summary>
         /// 当前AsyncTaskMethodBuilder执行的子任务，如果任务不实现IAsyncTokenProperty，为空
@@ -37,6 +37,10 @@ namespace CoFramework.Tasks.Internal
             this.Root = Root;
         }
 
+        /// <summary>
+        /// 任务是否已经取消
+        /// </summary>
+        [DebuggerHidden]
         public bool IsCanceld { get; internal set; } = false;
 
 
@@ -72,7 +76,6 @@ namespace CoFramework.Tasks.Internal
             {
                 this.Current.Token?.Cancel();
             }
-            //Current.Finish(ETaskStatus.Failed);
             IsCanceld = true;
         }
 
