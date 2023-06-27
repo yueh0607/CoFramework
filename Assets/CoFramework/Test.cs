@@ -35,21 +35,22 @@ public class Test : MonoBehaviour
         var res = Framework.GetModule<ResModule>();
         await res.InitializeAsync();
         var pool = Framework.GetModule<PoolModule>();
-        pool.CreatePool("cube", "Cube");
+        pool.CreatePool("cube", "Cube",10,500);
         
         List<GameObject> xs = new();
         GameObject Cubes = new GameObject();
-        for(int i =0;i<1000;i++)
+
+
+        for (int i =0;i<1000;i++)
         {
             var x = await pool.Get("cube");
             xs.Add(x);
-            x.transform.position = new Vector3(Random.value, Random.value, Random.value)*10;
+            x.transform.position = new Vector3(Random.value, Random.value, Random.value)*100;
             x.transform.SetParent(Cubes.transform);
         }
-        await CoTask.Delay(5);
+        //await CoTask.Delay(5);
 
-        pool.GetPool("cube").OnSet = (x) => x.SetActive(false);
-        pool.GetPool("cube").OnGet = (x) => x.SetActive(true);
+     
 
 
         Debug.Log("回收开始");
@@ -59,7 +60,15 @@ public class Test : MonoBehaviour
             await CoTask.NextFrame;
             pool.Set("cube", t);
         }
-       
+
+        Debug.Log("重启");
+        for (int i = 0; i < 1000; i++)
+        {
+            var x =await pool.Get("cube");
+            xs[i] = x;
+            x.transform.position = new Vector3(Random.value, Random.value, Random.value) * 100;
+            x.transform.SetParent(Cubes.transform);
+        }
     }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -155,7 +156,7 @@ namespace CoFramework.Tasks
                 catch (Exception ex)
                 {
 
-                    coTask.PostException(ex);
+                    coTask.PostException(ExceptionDispatchInfo.Capture(ex));
                     // 在主线程的下一条语句执行 coTask.Finish
                     context.Post(__ =>
                     {
@@ -195,7 +196,7 @@ namespace CoFramework.Tasks
                 }
                 catch (Exception ex)
                 {
-                    coTask.PostException(ex);
+                    coTask.PostException(ExceptionDispatchInfo.Capture(ex));
                     // 在主线程的下一条语句执行 coTask.Finish
                     context.Post(_ =>
                     {

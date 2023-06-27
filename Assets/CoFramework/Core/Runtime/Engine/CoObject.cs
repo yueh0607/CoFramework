@@ -20,14 +20,22 @@ namespace CoFramework
 
         public CoObject()
         {
-            //使用while在ulong溢出时不会导致深循环，溢出时全部ID接近于MAX，突然重置为0后一般在极少的循环
-            //次数内即可找到未占用的ID值，即时有少量的长期占用区域，也可以被快速跳过
-            while (_pool.Contains(_pointer++))
+            try
             {
-                if (_pointer == ulong.MaxValue) _pointer = 0;
+                //使用while在ulong溢出时不会导致深循环，溢出时全部ID接近于MAX，突然重置为0后一般在极少的循环
+                //次数内即可找到未占用的ID值，即时有少量的长期占用区域，也可以被快速跳过
+                while (_pool.Contains(_pointer++))
+                {
+                    if (_pointer == ulong.MaxValue) _pointer = 0;
+                }
+                _pool.Add(_pointer);
+                _id = _pointer;
             }
-            _pool.Add(_pointer);
-            _id = _pointer;
+            catch (Exception ex)
+            {
+                int e = 0;
+            }
+
         }
 
         ~CoObject()

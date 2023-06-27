@@ -68,10 +68,13 @@ namespace CoFramework.Pool
         public CoTask<GameObject> Get(string key)
         {
             var pool = GetPool(key)??throw new InvalidOperationException("Please get after create pool");
-            
             return pool.Get();
         }
-
+        public GameObject GetSync(string key)
+        {
+            var pool = GetPool(key) ?? throw new InvalidOperationException("Please get after create pool");
+            return pool.GetSync();
+        }
         public void Set(string key, GameObject obj)
         {
             var pool = GetPool(key) ?? throw new InvalidOperationException("Please set after create pool");
@@ -82,6 +85,11 @@ namespace CoFramework.Pool
         {
             var pool = GetPool(key);
             return (await pool.Get()).GetComponent<T>();
+        }
+        public async CoTask<T> GetComSync<T>(string key) where T : Component
+        {
+            var pool = GetPool(key);
+            return pool.GetSync().GetComponent<T>();
         }
         public void SetCom<T>(string key, T com) where T : Component
         {

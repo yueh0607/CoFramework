@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 
 namespace CoFramework.Tasks
 {
@@ -91,9 +92,9 @@ namespace CoFramework.Tasks
         /// <param name="ex"></param>
 
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void PostException(Exception ex)
+        public void PostException(ExceptionDispatchInfo ex)
         {
-            throw ex;
+            ex.Throw();
         }
 
 

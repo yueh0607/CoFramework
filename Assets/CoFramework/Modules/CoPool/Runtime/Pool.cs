@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YooAsset;
+using static UnityEditor.Progress;
 
 namespace CoFramework.Pool
 {
@@ -38,9 +39,10 @@ namespace CoFramework.Pool
         , defaultSet = (x) =>
         {
             x.SetActive(false);
-        },defaultDestroy=(x)=>
+        }
+        , defaultDestroy = (x) =>
         {
-            GameObject.Destroy(x);  
+            GameObject.Destroy(x); 
         };
 
 
@@ -58,6 +60,7 @@ namespace CoFramework.Pool
                     cacheHandle.Release();
                     yield break;
                 }
+                if (MinCount > MaxCount) throw new InvalidOperationException($"Please keep MaxCount>MinCount . CurrentMin{MinCount}>CurreentMax{MaxCount}");
                 if (queue.Count < MinCount)
                 {
                     var handle = cacheHandle.InstantiateAsync();
@@ -65,7 +68,12 @@ namespace CoFramework.Pool
                     OnCreate?.Invoke(handle.Result);
                     queue.Enqueue(handle.Result);
                 }
+                if(queue.Count>MaxCount)
+                {
+                    OnDestroy?.Invoke(queue.Dequeue());
+                }
                 yield return null;
+
             }
 
         }
@@ -87,13 +95,29 @@ namespace CoFramework.Pool
                 return handle.Result;
             }
             await CoTask.CompletedTask;
-            return queue.Dequeue();
+            var item = queue.Dequeue();
+            OnGet?.Invoke(item);
+            return item;
+        }
+        public GameObject GetSync()
+        {
+            if (queue.Count == 0)
+            {
+                var handle = cacheHandle.InstantiateSync();
+                OnCreate?.Invoke(handle);
+                OnGet?.Invoke(handle);
+                return handle;
+            }
+            var item = queue.Dequeue();
+            OnGet?.Invoke(item);
+            return item;
         }
 
         public void Set(GameObject item)
         {
             if (queue.Count >= MaxCount)
             {
+                OnSet?.Invoke(item);
                 OnDestroy?.Invoke(item);
                 return;
             }
@@ -103,5 +127,6 @@ namespace CoFramework.Pool
                 queue.Enqueue(item);
             }
         }
+
     }
 }

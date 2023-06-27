@@ -38,9 +38,9 @@ namespace CoFramework.Tasks
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetException(Exception exception)
         {
-            //UnityEngine.Debug.LogError(exception.ToString());
+
             task.Finish(ETaskStatus.Failed);
-            task.PostException(exception);
+            task.PostException(ExceptionDispatchInfo.Capture(exception));
         }
 
         // 5. SetResult 
@@ -102,11 +102,11 @@ namespace CoFramework.Tasks
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetException(Exception exception)
         {
-            ExceptionDispatchInfo dispatcher = ExceptionDispatchInfo.Capture(exception);
+           // ExceptionDispatchInfo dispatcher = ExceptionDispatchInfo.Capture(exception);
             //UnityEngine.Debug.LogError(exception.ToString());
             task.Finish(ETaskStatus.Failed);
-            //task.PostException(dispatcher.SourceException);
-            dispatcher.Throw();
+            task.PostException(ExceptionDispatchInfo.Capture(exception));
+            //dispatcher.Throw();
         }
 
         // 5. SetResult 
