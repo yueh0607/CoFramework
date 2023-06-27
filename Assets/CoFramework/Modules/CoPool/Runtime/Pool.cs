@@ -12,9 +12,9 @@ namespace CoFramework.Pool
     public class Pool
     {
 
-        public Action<GameObject> OnGet { get; set; } = null;
-        public Action<GameObject> OnSet { get; set; } = null;
-        public Action<GameObject> OnDestroy { get; set; } = null;
+        public Action<GameObject> OnGet { get; set; } = defaultGet;
+        public Action<GameObject> OnSet { get; set; } = defaultSet;
+        public Action<GameObject> OnDestroy { get; set; } = defaultDestroy;
 
         public Action<GameObject> OnCreate { get; set; } = null;
 
@@ -31,6 +31,20 @@ namespace CoFramework.Pool
         private Queue<GameObject> queue = new Queue<GameObject>();
 
 
+        static readonly Action<GameObject> defaultGet = (x) =>
+            {
+                x.SetActive(true);
+            }
+        , defaultSet = (x) =>
+        {
+            x.SetActive(false);
+        },defaultDestroy=(x)=>
+        {
+            GameObject.Destroy(x);  
+        };
+
+
+
         internal bool _destroyed = false;
         private IEnumerator PoolThread()
         {
@@ -39,7 +53,7 @@ namespace CoFramework.Pool
             yield return cacheHandle;
             while (true)
             {
-                if(_destroyed)
+                if (_destroyed)
                 {
                     cacheHandle.Release();
                     yield break;
@@ -53,7 +67,7 @@ namespace CoFramework.Pool
                 }
                 yield return null;
             }
-            
+
         }
         internal void InitPool()
         {

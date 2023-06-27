@@ -29,11 +29,12 @@ namespace CoFramework.Pool
 
         }
 
+
+        
         private readonly Dictionary<string, Pool> pools = new Dictionary<string, Pool>();
 
-        public void CreatePool(string key, string location, int minCount = 0, int maxCount = int.MaxValue,
-            Action<GameObject> onCreate = null, Action<GameObject> onGet = null,
-            Action<GameObject> onSet = null, Action<GameObject> onDestroy = null)
+        public void CreatePool(string key, string location, int minCount = 0, int maxCount = int.MaxValue
+         )
         {
             if (pools.ContainsKey(key)) return;
             Pool pool = new Pool();
@@ -41,11 +42,6 @@ namespace CoFramework.Pool
             pool.Location = location;
             pool.MinCount = minCount;
             pool.MaxCount = maxCount;
-            pool.OnCreate = onCreate;
-            pool.OnGet = onGet;
-            pool.OnSet = onSet;
-            pool.OnDestroy = onDestroy;
-
             pools.Add(key,pool);
 
             pool.InitPool();
