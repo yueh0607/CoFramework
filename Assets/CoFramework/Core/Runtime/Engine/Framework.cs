@@ -198,6 +198,11 @@ namespace CoFramework
                 GlobalReduce(type, reduceCount);
             }
         }
+
+        public static void CreateModule<T>()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }

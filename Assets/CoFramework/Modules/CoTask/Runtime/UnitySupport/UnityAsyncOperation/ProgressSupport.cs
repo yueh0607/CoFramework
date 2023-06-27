@@ -15,24 +15,24 @@ namespace CoFramework.Tasks
 
     public static class AsyncOperationEx
     {
-        
+
         public static async CoTask<AsyncOperation> WithProgress(this AsyncOperation operation, Action<float> progress)
         {
             var module = Framework.GetModule<TaskModule>();
-            static IEnumerator PostProgress(Action<float > receiver,AsyncOperation operation) 
+            static IEnumerator PostProgress(Action<float> receiver, AsyncOperation operation)
             {
-                while(true)
+                while (true)
                 {
-                    if(operation.isDone) receiver(1f);
+                    if (operation.isDone) receiver(1f);
                     else receiver(operation.progress);
                     yield return null;
                 }
             }
-            await PostProgress(progress,operation);
+            await PostProgress(progress, operation);
             return operation;
         }
 
-        
+
 
     }
 }

@@ -60,7 +60,7 @@ namespace CoFramework.Tasks
         public void Finish(ETaskStatus status)
         {
 
-            if(status==ETaskStatus.Succeed)
+            if (status == ETaskStatus.Succeed)
             {
                 int x = 0;
             }
@@ -157,7 +157,7 @@ namespace CoFramework.Tasks
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void BaseRecycle()
         {
-           
+
             var token = ((IAsyncTokenProperty)this).Token;
             token.Authorization = false;
         }

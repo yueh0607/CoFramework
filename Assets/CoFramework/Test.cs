@@ -1,54 +1,65 @@
 ﻿using CoFramework;
+using CoFramework.Events;
+using CoFramework.Pool;
+using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+/*模块依赖
+ * 1.Framework
+ * 2.Res / Task
+ * 3.Event / Pool
+ * 
+ * 
+ * 
+ * 
+ */
+
 
 public class Test : MonoBehaviour
 {
     object x = new();
 
- 
-
-    async CoTask AsyncTest()
+    async CoTask AsyncTest(int sign)
     {
-       CoTask<AsyncMonitor.LockHandle> task = AsyncMonitor.Lock(x);
-
-        AsyncMonitor.LockHandle t = await task;
-        if(task.Result==null)
-        {
-            int d = 0;
-        }
-
-        using (t)
-        {
-            await CoTask.Delay(3);
-            Debug.Log("执行");
-        }
-        Debug.Log("Dispose");
-       
-  
+        await CoTask.Delay(5);
     }
-
-
-    async CoTask<int> TestAsync()
-    {
-        await CoTask.CompletedTask;
-        return 10;
-    }    
 
     async void Start()
     {
         Framework.CreateModule<TaskModule>(null);
+        Framework.CreateModule<EventModule>(new EventModuleCreateParameters());
+        Framework.CreateModule<ResModule>(new ResModuleCreateParameters() { });
+        Framework.CreateModule<PoolModule>(null);
+        var res = Framework.GetModule<ResModule>();
+        await res.InitializeAsync();
+        var pool = Framework.GetModule<PoolModule>();
+        pool.CreatePool("cube", "Cube");
+        
+        List<GameObject> xs = new();
+        GameObject Cubes = new GameObject();
+        for(int i =0;i<1000;i++)
+        {
+            var x = await pool.Get("cube");
+            xs.Add(x);
+            x.transform.position = new Vector3(Random.value, Random.value, Random.value)*10;
+            x.transform.SetParent(Cubes.transform);
+        }
+        await CoTask.Delay(5);
 
-        AsyncTest().Forget();
-        AsyncTest().Forget();
+        pool.GetPool("cube").OnSet = (x) => x.SetActive(false);
+        pool.GetPool("cube").OnGet = (x) => x.SetActive(true);
 
 
-       // Debug.Log(await TestAsync());
-        //AsyncMonitor.Enter(x);
-
-        //Debug.Log(AsyncMonitor.IsLocked(x));
-
+        Debug.Log("回收开始");
+        foreach(var t in xs)
+        {
+            
+            await CoTask.NextFrame;
+            pool.Set("cube", t);
+        }
+       
     }
 
 

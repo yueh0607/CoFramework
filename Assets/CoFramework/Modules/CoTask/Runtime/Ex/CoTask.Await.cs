@@ -111,6 +111,7 @@ namespace CoFramework.Tasks
             return _task;
         }
 
+
         /// <summary>
         /// 返回一个指向委托返回结果的CoTask，可以理解为未运行的CoTask
         /// 注意返回的CoTask指向的CoTask并不同，仅仅当指向的CoTask完成时也完成返回的CoTask
@@ -338,7 +339,7 @@ namespace CoFramework.Tasks
             await WaitUntilTask(predicate, task);
         }
 
-     
+
 
     }
 }

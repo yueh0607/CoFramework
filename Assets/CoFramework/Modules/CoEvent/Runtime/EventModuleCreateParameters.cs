@@ -1,6 +1,6 @@
 ﻿namespace CoFramework.Events
 {
-    public class CoEventCreateParameters : CreateParameters
+    public class EventModuleCreateParameters : CreateParameters
     {
         /// <summary>
         /// 回收间隔，CoEvent运行时会存在一些极少的垃圾，如果令该数值为-1则永不回收(影响极小)

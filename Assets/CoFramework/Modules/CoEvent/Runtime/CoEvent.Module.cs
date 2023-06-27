@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CoFramework.Events
 {
+
+    //无依赖
     public class EventModule : IModule
     {
         //事件容器
@@ -39,7 +41,7 @@ namespace CoFramework.Events
         void IModule.OnCreate(CreateParameters parameters)
         {
             //参数检查
-            var _params = parameters as CoEventCreateParameters;
+            var _params = parameters as EventModuleCreateParameters;
             if (_params == null) throw new ArgumentException("Mismatched module parameter types");
 
             GameObject publisher = new GameObject("[CoEventDriver]");

@@ -1,0 +1,19 @@
+{
+    "name": "CoFramework.PoolModule",
+    "rootNamespace": "CoFramework.PoolModule",
+    "references": [
+        "GUID:0cdaf06515f76d847ba59b72bb868663",
+        "GUID:e34a5702dd353724aa315fb8011f08c3",
+        "GUID:9a7a55499f621a942ae658a1f282213c",
+        "GUID:00128473b196aa74db44c340ff68a10b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

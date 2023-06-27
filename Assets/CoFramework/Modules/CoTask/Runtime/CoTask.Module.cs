@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace CoFramework.Tasks
 {
+    //无依赖
     public class TaskModule : IModule
     {
         private MonoBehaviour mono;

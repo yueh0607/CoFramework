@@ -41,31 +41,31 @@ namespace CoFramework.Tasks
             return await task;
         }
 
-        /// <summary>
-        /// 阻塞主线程到完成
-        /// </summary>
-        /// <param name="task"></param>
-        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Wait(this CoTask task)
-        {
-            TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
-            task.OnCompleted += (x) => source.SetResult(x.Status);
-            source.Task.Wait();
-        }
-        /// <summary>
-        /// 阻塞主线程到完成
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="task"></param>
-        /// <returns></returns>
-        [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Wait<T>(this CoTask<T> task)
-        {
-            TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
-            task.OnCompleted += (x) => source.SetResult(x.Status);
-            source.Task.Wait();
-            return task.Result;
-        }
+        ///// <summary>
+        ///// 阻塞主线程到完成
+        ///// </summary>
+        ///// <param name="task"></param>
+        //[DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static void Wait(this CoTask task)
+        //{
+        //    TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
+        //    task.OnCompleted += (x) => source.SetResult(x.Status);
+        //    source.Task.Wait();
+        //}
+        ///// <summary>
+        ///// 阻塞主线程到完成
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="task"></param>
+        ///// <returns></returns>
+        //[DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static T Wait<T>(this CoTask<T> task)
+        //{
+        //    TaskCompletionSource<ETaskStatus> source = new TaskCompletionSource<ETaskStatus>();
+        //    task.OnCompleted += (x) => source.SetResult(x.Status);
+        //    source.Task.Wait();
+        //    return task.Result;
+        //}
 
         /// <summary>
         /// 为指定异步任务设置令牌，可以取消和挂起

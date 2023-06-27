@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 
 namespace CoFramework.Tasks
 {
@@ -101,9 +102,11 @@ namespace CoFramework.Tasks
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetException(Exception exception)
         {
+            ExceptionDispatchInfo dispatcher = ExceptionDispatchInfo.Capture(exception);
             //UnityEngine.Debug.LogError(exception.ToString());
             task.Finish(ETaskStatus.Failed);
-            task.PostException(exception);
+            //task.PostException(dispatcher.SourceException);
+            dispatcher.Throw();
         }
 
         // 5. SetResult 

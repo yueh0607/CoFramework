@@ -81,7 +81,7 @@ namespace CoFramework.Tasks
             {
                 while (true)
                 {
-                    
+
                     if (!_enumerator.MoveNext())
                         break;
                     else
@@ -97,9 +97,9 @@ namespace CoFramework.Tasks
                             else yield return null;
                         }
                     }
-                    
+
                     yield return _enumerator.Current;
-                    
+
                 }
                 task.Finish(ETaskStatus.Succeed);
             }
@@ -113,7 +113,7 @@ namespace CoFramework.Tasks
             return task;
         }
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CoTask GetAwaiter<T>(this T instruction) where T :YieldInstruction
+        public static CoTask GetAwaiter<T>(this T instruction) where T : YieldInstruction
         {
             static IEnumerator GetEnumerator(T instruction)
             {

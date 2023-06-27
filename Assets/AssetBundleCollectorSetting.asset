@@ -13,7 +13,23 @@ MonoBehaviour:
   m_Name: AssetBundleCollectorSetting
   m_EditorClassIdentifier: 
   ShowPackageView: 0
-  EnableAddressable: 0
-  UniqueBundleName: 0
-  ShowEditorAlias: 0
-  Packages: []
+  EnableAddressable: 1
+  UniqueBundleName: 1
+  ShowEditorAlias: 1
+  Packages:
+  - PackageName: DefaultPackage
+    PackageDesc: 
+    Groups:
+    - GroupName: Default Group
+      GroupDesc: 
+      AssetTags: 
+      ActiveRuleName: EnableGroup
+      Collectors:
+      - CollectPath: Assets/Project/Art
+        CollectorGUID: e1f93d5e41cc69f469976556e1374eb3
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
