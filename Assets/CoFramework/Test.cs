@@ -32,6 +32,7 @@ public class Test : MonoBehaviour
         Framework.CreateModule<EventModule>(new EventModuleCreateParameters());
         Framework.CreateModule<ResModule>(new ResModuleCreateParameters() { });
         Framework.CreateModule<PoolModule>(null);
+
         var res = Framework.GetModule<ResModule>();
         await res.InitializeAsync();
         var pool = Framework.GetModule<PoolModule>();
@@ -56,7 +57,6 @@ public class Test : MonoBehaviour
         Debug.Log("回收开始");
         foreach(var t in xs)
         {
-            
             await CoTask.NextFrame;
             pool.Set("cube", t);
         }
