@@ -1,8 +1,8 @@
 {
-    "name": "CoFramework.Editor",
+    "name": "CoFramework.FSMModule.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:0cdaf06515f76d847ba59b72bb868663"
+        "GUID:cab906dfffb913c418ef04c218b1ddae"
     ],
     "includePlatforms": [
         "Editor"

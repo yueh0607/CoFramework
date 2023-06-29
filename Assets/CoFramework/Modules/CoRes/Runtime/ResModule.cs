@@ -7,6 +7,7 @@ namespace CoFramework.ResourceManagement
 {
 
     //无依赖
+    [ModuleDepends(typeof(ResModuleCreateParameters))]
     public class ResModule : IModule
     {
 

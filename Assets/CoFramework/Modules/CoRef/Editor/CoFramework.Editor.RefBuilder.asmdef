@@ -1,8 +1,8 @@
 {
-    "name": "CoFramework.Editor",
+    "name": "CoFramework.Editor.RefBuilder",
     "rootNamespace": "",
     "references": [
-        "GUID:0cdaf06515f76d847ba59b72bb868663"
+        "GUID:1817def0c9512af4c96f4593aee7bc64"
     ],
     "includePlatforms": [
         "Editor"

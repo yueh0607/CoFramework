@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace CoFramework
 {
@@ -14,6 +15,12 @@ namespace CoFramework
         private static void CreateModule(Type type, CreateParameters parameters)
         {
             if (modules.ContainsKey(type)) return;
+            var _depend = type.GetCustomAttribute<ModuleDependsAttribute>();
+            if(_depend!=null)
+                for(int i=0;i<_depend.Depends.Length;++i)
+                    if (!modules.ContainsKey(_depend.Depends[i]))
+                        throw new InvalidOperationException($"Module {type.Name} depends on {_depend.Depends[i].Name}. Please first create and initialize it");
+            
             modules.Enqueue(type, (IModule)Activator.CreateInstance(type));
             modules[type].OnCreate(parameters);
         }
@@ -58,6 +65,14 @@ namespace CoFramework
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static bool HasModule<T>() where T : IModule => modules.ContainsKey(typeof(T));
+        /// <summary>
+        /// 检查是否存在模块
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static bool HasModule(Type type) => modules.ContainsKey(type);
+
+
         /// <summary>
         /// 存在模块时返回，不存在时创建
         /// </summary>

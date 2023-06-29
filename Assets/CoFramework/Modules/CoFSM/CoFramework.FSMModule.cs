@@ -1,21 +1,19 @@
 ﻿using CoFramework;
-using CoFramework.ResourceManagement;
+using CoFramework.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoFramework.Audio
+namespace CoFramework.FSM
 {
-
-    [ModuleDepends(null,typeof(ResModule))]
-    public class AudioModule : IModule
+    [ModuleDepends(null,typeof(TaskModule))]
+    public class FSMModule : IModule
     {
-       
-
         public void OnCreate(CreateParameters parameters)
         {
-
+            
         }
+
         public void OnDestroy()
         {
 
@@ -25,12 +23,5 @@ namespace CoFramework.Audio
         {
 
         }
-
-
-        public float GlobalVolume { get; set; } = 1;
-
-
-     
-
     }
 }

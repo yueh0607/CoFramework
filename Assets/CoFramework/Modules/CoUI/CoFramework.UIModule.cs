@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace CoFramework.UI
 {
+    [ModuleDepends(typeof(UIModuleCreateParameters),typeof(ResModule),typeof(TaskModule))]
     public class UIModule : IModule
     {
         public GameObject UIRoot { get; private set; }

@@ -22,6 +22,7 @@ namespace CoFramework.UI
 
         protected abstract CoTask OnDestroy();
 
+        protected abstract void Update();
 
         public CoTask Open()
         {
@@ -38,6 +39,7 @@ namespace CoFramework.UI
             return  OnClose();
         }
 
+        private Action updateAction =null;
         public async CoTask Load(string location)
         {
             if (loaded) throw new InvalidOperationException("Panel has been loaded.");
@@ -50,15 +52,21 @@ namespace CoFramework.UI
             handle.Release();
             await OnCreate();
             loaded = true;
+            updateAction ??= Update;
+            Framework.Update += updateAction;
         }
 
         public async CoTask Unload()
         {
             if (!loaded) throw new InvalidOperationException("Panel has been not loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
+            Framework.Update -= updateAction;
             await OnDestroy();
             GameObject.Destroy(Panel);
             loaded = false;
         }
+
+
+
     }
 }

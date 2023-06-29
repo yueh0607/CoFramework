@@ -1,4 +1,5 @@
-﻿using CoFramework.Tasks;
+﻿using CoFramework.ResourceManagement;
+using CoFramework.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace CoFramework.Pool
 {
     //依赖ResModule
-
+    [ModuleDepends(null,typeof(ResModule))]
     public class PoolModule : IModule
     {
         void IModule.OnCreate(CreateParameters parameters)
