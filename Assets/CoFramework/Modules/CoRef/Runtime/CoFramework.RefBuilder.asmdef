@@ -1,12 +1,10 @@
 {
-    "name": "CoFramework.EngineEditor",
-    "rootNamespace": "",
+    "name": "CoFramework.RefBuilder",
+    "rootNamespace": "CoFramework.RefBuild",
     "references": [
         "GUID:0cdaf06515f76d847ba59b72bb868663"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -2,7 +2,9 @@
     "name": "CoFramework.Editor.RefBuilder",
     "rootNamespace": "",
     "references": [
-        "GUID:1817def0c9512af4c96f4593aee7bc64"
+        "GUID:1817def0c9512af4c96f4593aee7bc64",
+        "GUID:9686f673d730b564d98c2fbeefe03862",
+        "GUID:9186904f356ec5f4a86df427331d6c19"
     ],
     "includePlatforms": [
         "Editor"

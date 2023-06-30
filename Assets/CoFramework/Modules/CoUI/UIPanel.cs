@@ -60,6 +60,7 @@ namespace CoFramework.UI
         {
             if (!loaded) throw new InvalidOperationException("Panel has been not loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
+            unloading= true;
             Framework.Update -= updateAction;
             await OnDestroy();
             GameObject.Destroy(Panel);

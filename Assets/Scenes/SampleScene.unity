@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 781079456}
   - component: {fileID: 781079455}
   - component: {fileID: 781079457}
+  - component: {fileID: 781079458}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -528,6 +529,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 
+--- !u!114 &781079458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781079454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae68113a4a8a00742aebc81d5fb3f7db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildTarget: {fileID: 781079456}
+  buildProperty: position
 --- !u!1 &839724267
 GameObject:
   m_ObjectHideFlags: 0
