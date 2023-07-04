@@ -241,7 +241,7 @@ namespace CoFramework.Tasks
                     if (task.Token.Authorization)
                         if (counter >= tasks.Length)
                         {
-                            task.Finish(ETaskStatus.None);
+                            task.Finish(ETaskStatus.Succeed);
                         }
                     yield return null;
                 }
@@ -301,7 +301,7 @@ namespace CoFramework.Tasks
                         if (counter >= tasks.Length)
                         {
                             task.Result = results;
-                            task.Finish(ETaskStatus.None);
+                            task.Finish(ETaskStatus.Succeed);
                         }
                     yield return null;
                 }

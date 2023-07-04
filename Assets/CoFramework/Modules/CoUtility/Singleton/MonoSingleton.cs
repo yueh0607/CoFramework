@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace CoFramework.Singletons
+namespace CoFramework.Utility.Singletons
 {
     public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {

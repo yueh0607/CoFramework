@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace CoFramework.Singletons
+namespace CoFramework.Utility.Singletons
 {
     public static class MonoSingletonProperty<T> where T : MonoBehaviour
     {

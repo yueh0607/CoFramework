@@ -21,10 +21,7 @@ namespace CoFramework.FSM
             }
         }
 
-
-        [SerializeField] string defaultState = String.Empty;
-
-        private Dictionary<Type, StateData> states = new Dictionary<Type, StateData>();
+        private readonly Dictionary<Type, StateData> states = new Dictionary<Type, StateData>();
 
 
         /// <summary>
@@ -92,7 +89,6 @@ namespace CoFramework.FSM
         }
 
 
-
         bool IsRunning(Type type)
         {
             if (states.ContainsKey(type))
@@ -151,16 +147,6 @@ namespace CoFramework.FSM
         }
 
 
-
-        void Start()
-        {
-            if (defaultState != String.Empty)
-            {
-                Type defaultType = Type.GetType(defaultState);
-                Enter(defaultType);
-            }
-        }
-
         void Update()
         {
             foreach (var state in states)
@@ -170,6 +156,8 @@ namespace CoFramework.FSM
             }
 
         }
+
+
         private void FixedUpdate()
         {
             foreach (var state in states)

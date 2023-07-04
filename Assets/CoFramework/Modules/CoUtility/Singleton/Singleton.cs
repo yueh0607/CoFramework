@@ -1,4 +1,4 @@
-﻿namespace CoFramework.Singletons
+﻿namespace CoFramework.Utility.Singletons
 {
     public abstract class Singleton<T> where T : Singleton<T>
     {

@@ -7,6 +7,9 @@
     {
 
     }
+    public sealed class NotCreateModule
+    {
 
+    }
 
 }
