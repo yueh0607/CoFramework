@@ -135,7 +135,9 @@ namespace CoFramework.FSM
 
         void OnUpdateMahcine()
         {
+
             if (current == null) return;
+            current.OnUpdate();
             if (!map.ContainsKey(currentName)) return;
             var trans = map[currentName];
             foreach(var t in trans)
@@ -144,7 +146,9 @@ namespace CoFramework.FSM
                 {
                     if (!states.ContainsKey(t.Key)) throw new InvalidOperationException("State not existed!");
                     currentName = t.Key;
+                    current.OnExit();
                     current = states[t.Key];
+                    current.OnEnter();
                     break;
                 }
             }
