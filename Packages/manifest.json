@@ -1,7 +1,6 @@
 {
   "dependencies": {
-    "com.tuyoogame.yooasset": "1.4.16",
-    "com.unity.addressables": "1.19.19",
+    "com.tuyoogame.yooasset": "1.5.0",
     "com.unity.collab-proxy": "2.0.3",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.feature.development": "1.0.1",

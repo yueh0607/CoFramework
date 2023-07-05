@@ -1,6 +1,8 @@
 {
-    "FileVersion": "1.4.6",
+    "FileVersion": "1.4.17",
     "EnableAddressable": true,
+    "LocationToLower": false,
+    "IncludeAssetGUID": false,
     "OutputNameStyle": 1,
     "PackageName": "DefaultPackage",
     "PackageVersion": "Simulate",
@@ -8,6 +10,7 @@
         {
             "Address": "Cube",
             "AssetPath": "Assets/Project/Art/Cube.prefab",
+            "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 0,
             "DependIDs": []
