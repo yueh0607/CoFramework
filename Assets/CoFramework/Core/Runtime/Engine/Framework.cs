@@ -16,11 +16,11 @@ namespace CoFramework
         {
             if (modules.ContainsKey(type)) return;
             var _depend = type.GetCustomAttribute<ModuleDependsAttribute>();
-            if(_depend!=null)
-                for(int i=0;i<_depend.Depends.Length;++i)
+            if (_depend != null)
+                for (int i = 0; i < _depend.Depends.Length; ++i)
                     if (!modules.ContainsKey(_depend.Depends[i]))
                         throw new InvalidOperationException($"Module {type.Name} depends on {_depend.Depends[i].Name}. Please first create and initialize it");
-            
+
             modules.Enqueue(type, (IModule)Activator.CreateInstance(type));
             modules[type].OnCreate(parameters);
         }

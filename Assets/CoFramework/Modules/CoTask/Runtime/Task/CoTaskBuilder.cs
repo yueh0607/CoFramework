@@ -102,7 +102,7 @@ namespace CoFramework.Tasks
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetException(Exception exception)
         {
-           // ExceptionDispatchInfo dispatcher = ExceptionDispatchInfo.Capture(exception);
+            // ExceptionDispatchInfo dispatcher = ExceptionDispatchInfo.Capture(exception);
             //UnityEngine.Debug.LogError(exception.ToString());
             task.Finish(ETaskStatus.Failed);
             task.PostException(ExceptionDispatchInfo.Capture(exception));

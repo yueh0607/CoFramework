@@ -1,7 +1,6 @@
 ﻿using CoFramework.Tasks.Internal;
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
@@ -9,7 +8,7 @@ using System.Runtime.ExceptionServices;
 namespace CoFramework.Tasks
 {
 
-    public abstract class CoTaskBase 
+    public abstract class CoTaskBase
         : CoObject, IAsyncTokenProperty
 
     {

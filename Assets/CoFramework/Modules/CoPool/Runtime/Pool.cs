@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YooAsset;
-using static UnityEditor.Progress;
 
 namespace CoFramework.Pool
 {
@@ -42,7 +41,7 @@ namespace CoFramework.Pool
         }
         , defaultDestroy = (x) =>
         {
-            GameObject.Destroy(x); 
+            GameObject.Destroy(x);
         };
 
 
@@ -68,7 +67,7 @@ namespace CoFramework.Pool
                     OnCreate?.Invoke(handle.Result);
                     queue.Enqueue(handle.Result);
                 }
-                if(queue.Count>MaxCount)
+                if (queue.Count > MaxCount)
                 {
                     OnDestroy?.Invoke(queue.Dequeue());
                 }

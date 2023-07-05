@@ -210,7 +210,7 @@ namespace CoFramework.Tasks
         {
             base.BaseRecycle();
             //Result = default;
-  
+
         }
 
         [DebuggerHidden, MethodImpl(MethodImplOptions.AggressiveInlining)]

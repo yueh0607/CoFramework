@@ -2,13 +2,12 @@
 using CoFramework.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 namespace CoFramework.Pool
 {
     //依赖ResModule
-    [ModuleDepends(null,typeof(ResModule))]
+    [ModuleDepends(null, typeof(ResModule))]
     public class PoolModule : IModule
     {
         void IModule.OnCreate(CreateParameters parameters)
@@ -18,7 +17,7 @@ namespace CoFramework.Pool
 
         void IModule.OnDestroy()
         {
-            foreach(var kvp in pools)
+            foreach (var kvp in pools)
             {
                 kvp.Value._destroyed = true;
             }
@@ -31,7 +30,7 @@ namespace CoFramework.Pool
         }
 
 
-        
+
         private readonly Dictionary<string, Pool> pools = new Dictionary<string, Pool>();
 
         public void CreatePool(string key, string location, int minCount = 0, int maxCount = int.MaxValue
@@ -43,7 +42,7 @@ namespace CoFramework.Pool
             pool.Location = location;
             pool.MinCount = minCount;
             pool.MaxCount = maxCount;
-            pools.Add(key,pool);
+            pools.Add(key, pool);
 
             pool.InitPool();
         }
@@ -68,7 +67,7 @@ namespace CoFramework.Pool
 
         public CoTask<GameObject> Get(string key)
         {
-            var pool = GetPool(key)??throw new InvalidOperationException("Please get after create pool");
+            var pool = GetPool(key) ?? throw new InvalidOperationException("Please get after create pool");
             return pool.Get();
         }
         public GameObject GetSync(string key)
@@ -82,7 +81,7 @@ namespace CoFramework.Pool
             pool.Set(obj);
         }
 
-        public async CoTask<T> GetCom<T>(string key) where T:Component
+        public async CoTask<T> GetCom<T>(string key) where T : Component
         {
             var pool = GetPool(key);
             return (await pool.Get()).GetComponent<T>();

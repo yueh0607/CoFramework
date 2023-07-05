@@ -98,7 +98,7 @@ namespace CoFramework.Tween.EaseCurves
             }
         }
 
-    
+
 
     }
     public enum EaseCurve

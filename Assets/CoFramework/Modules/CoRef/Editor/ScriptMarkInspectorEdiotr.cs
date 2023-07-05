@@ -1,15 +1,14 @@
 ﻿using CoFramework.RefBuild;
+using CoFramework.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using CoFramework.Utility;
 namespace CoFramework.EngineEditor
 {
 
     [CustomEditor(typeof(ScriptMark))]
-  
+
     public class ScriptMarkEditor : Editor
     {
         SerializedProperty buildTarget;
@@ -31,18 +30,18 @@ namespace CoFramework.EngineEditor
 
             //反射组件
             var components = ReflectionHelper.FindAllCompinents(((ScriptMark)serializedObject.targetObject).gameObject);
-            components.RemoveAll((x)=>x.GetType() == typeof(ScriptMark));
+            components.RemoveAll((x) => x.GetType() == typeof(ScriptMark));
             //生成选项
-            List<string> comStr= ReflectionHelper.ComponentsToString(components);
+            List<string> comStr = ReflectionHelper.ComponentsToString(components);
             //序列化选项恢复
             string current = ((Component)buildTarget.objectReferenceValue)?.GetType().Name;
-            componentIndex = Math.Clamp(comStr.IndexOf(current), 0, components.Count-1);
+            componentIndex = Math.Clamp(comStr.IndexOf(current), 0, components.Count - 1);
 
-            componentIndex = EditorGUILayout.Popup("组件标记",componentIndex,comStr.ToArray());
+            componentIndex = EditorGUILayout.Popup("组件标记", componentIndex, comStr.ToArray());
 
             buildTarget.objectReferenceValue = components[componentIndex];
             //展示属性
-           // EditorGUILayout.PropertyField(buildTarget, new GUIContent("组件标记"));
+            // EditorGUILayout.PropertyField(buildTarget, new GUIContent("组件标记"));
 
 
 
@@ -59,15 +58,15 @@ namespace CoFramework.EngineEditor
             //获取掩码
             propertyMask = MaskHelper.GetMaskFromIndex(index);
             //展示列表
-            propertyMask = EditorGUILayout.MaskField("属性标记",propertyMask,pros.ToArray());
+            propertyMask = EditorGUILayout.MaskField("属性标记", propertyMask, pros.ToArray());
 
             //存储mask
             index = MaskHelper.GetIndexFromMask(propertyMask, pros.Count);
-            var newOption = MaskHelper.GetStringFromIndex(pros,index);
+            var newOption = MaskHelper.GetStringFromIndex(pros, index);
             var newStr = MaskHelper.MergeToMaskString(newOption);
-     
-            buildProperty.stringValue= newStr;
-            
+
+            buildProperty.stringValue = newStr;
+
             serializedObject.ApplyModifiedProperties();
         }
 

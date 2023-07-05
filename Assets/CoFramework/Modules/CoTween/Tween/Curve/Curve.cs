@@ -51,5 +51,5 @@ namespace CoFramework.Tween
     }
 
 
-    
+
 }

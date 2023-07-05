@@ -1,11 +1,9 @@
-﻿using CoFramework.Events;
+﻿using CoFramework;
+using CoFramework.Events;
 using CoFramework.Pool;
 using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
-using CoFramework;
 using CoFramework.Utility.Singletons;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoSingleton<Game>
@@ -19,7 +17,7 @@ public class Game : MonoSingleton<Game>
         }
     }
     public bool Inited => inited;
-    
+
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static async void Init()

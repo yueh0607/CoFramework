@@ -1,15 +1,13 @@
 ﻿using CoFramework.RefBuild;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CoFramework.Tween
 {
-    public static class StrategyEx 
+    public static class StrategyEx
     {
 
-        internal static ISteper GetSteper<T>() where T :IEquatable<T>
+        internal static ISteper GetSteper<T>() where T : IEquatable<T>
         {
             Type type = typeof(T);
 
@@ -23,12 +21,12 @@ namespace CoFramework.Tween
             throw new InvalidOperationException($"Do not Have Steper<{type}>!");
         }
 
-        internal static ISteper GetSteperWithParm<T>(T start,T end, BindableProperty<T> port) where T : IEquatable<T>
+        internal static ISteper GetSteperWithParm<T>(T start, T end, BindableProperty<T> port) where T : IEquatable<T>
         {
-            var stepter = (TweenSteper<T>) GetSteper<T>();
+            var stepter = (TweenSteper<T>)GetSteper<T>();
             stepter.ValueStart = start;
             stepter.ValueEnd = end;
-            stepter.Current= port;
+            stepter.Current = port;
             return stepter;
         }
 

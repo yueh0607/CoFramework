@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-namespace CoFramework.FSM
+﻿namespace CoFramework.FSM
 {
     public interface IState
     {

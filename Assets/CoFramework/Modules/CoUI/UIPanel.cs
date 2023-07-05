@@ -1,9 +1,6 @@
 ﻿using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace CoFramework.UI
@@ -36,10 +33,10 @@ namespace CoFramework.UI
         {
             if (!loaded) throw new InvalidOperationException("Panel has been not loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
-            return  OnClose();
+            return OnClose();
         }
 
-        private Action updateAction =null;
+        private Action updateAction = null;
         public async CoTask Load(string location)
         {
             if (loaded) throw new InvalidOperationException("Panel has been loaded.");
@@ -60,7 +57,7 @@ namespace CoFramework.UI
         {
             if (!loaded) throw new InvalidOperationException("Panel has been not loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
-            unloading= true;
+            unloading = true;
             Framework.Update -= updateAction;
             await OnDestroy();
             GameObject.Destroy(Panel);

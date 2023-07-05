@@ -1,6 +1,4 @@
-﻿using PlasticGui;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
@@ -24,7 +22,7 @@ namespace CoFramework.EngineEditor
 
         Dictionary<Type, bool> folded = new Dictionary<Type, bool>();
         Dictionary<Type, Type[]> depends = new Dictionary<Type, Type[]>();
-        Dictionary<Type, Type> parameters= new Dictionary<Type,Type>();
+        Dictionary<Type, Type> parameters = new Dictionary<Type, Type>();
         private void OnEnable()
         {
             Assembly[] ass = AppDomain.CurrentDomain.GetAssemblies();
@@ -47,7 +45,7 @@ namespace CoFramework.EngineEditor
 
         Vector2 scrollViewPosition = Vector2.zero;
         string tagTemp = string.Empty;
-  
+
         private void OnGUI()
         {
             scrollViewPosition = GUILayout.BeginScrollView(scrollViewPosition, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
@@ -57,15 +55,15 @@ namespace CoFramework.EngineEditor
             {
                 tagTemp = string.Empty;
                 if (Application.isPlaying)
-                     tagTemp = Framework.HasModule(kvp.Key) ? "---(Running)" : "---(Rest)";
-                else tagTemp = parameters[kvp.Key]==null?"--(NullCreateParameter)": $"--({parameters[kvp.Key].Name})";
-                
+                    tagTemp = Framework.HasModule(kvp.Key) ? "---(Running)" : "---(Rest)";
+                else tagTemp = parameters[kvp.Key] == null ? "--(NullCreateParameter)" : $"--({parameters[kvp.Key].Name})";
+
                 GUILayout.Label($"[{kvp.Key.Name}]" + tagTemp);
 
 
                 foreach (var depend in depends[kvp.Key])
                 {
-                    EditorGUILayout.LabelField("            " + depend.Name+"(Depend)", EditorStyles.wordWrappedLabel);
+                    EditorGUILayout.LabelField("            " + depend.Name + "(Depend)", EditorStyles.wordWrappedLabel);
                 }
 
             }

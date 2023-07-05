@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace CoFramework.Tween
 {
@@ -15,7 +12,7 @@ namespace CoFramework.Tween
         public float TimeStart
         {
             get => timeStart;
-            private set=> timeStart = value;
+            private set => timeStart = value;
 
         }
         /// <summary>
@@ -145,11 +142,11 @@ namespace CoFramework.Tween
         {
             Enable = false;
             Framework.GlobalRecycle(Steper);
-            Steper= null;
+            Steper = null;
             TimeStart = 0;
             TimeEnd = 0;
             Loop = LoopType.None;
-            Speed= 1;
+            Speed = 1;
             OnCompleted = null;
         }
     }

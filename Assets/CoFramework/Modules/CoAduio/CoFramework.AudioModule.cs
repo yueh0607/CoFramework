@@ -10,7 +10,7 @@
 //    [ModuleDepends(null,typeof(ResModule))]
 //    public class AudioModule : IModule
 //    {
-       
+
 
 //        public void OnCreate(CreateParameters parameters)
 //        {
@@ -30,7 +30,7 @@
 //        public float GlobalVolume { get; set; } = 1;
 
 
-     
+
 
 //    }
 //}

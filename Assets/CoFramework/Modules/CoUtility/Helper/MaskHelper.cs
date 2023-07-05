@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
 
 namespace CoFramework.Utility
 {
@@ -111,9 +109,9 @@ namespace CoFramework.Utility
         /// <returns></returns>
         public static bool IsNothing(string str)
         {
-            if(str == null) return true;
-            if(str==string.Empty) return true;
-            
+            if (str == null) return true;
+            if (str == string.Empty) return true;
+
             return false;
         }
     }

@@ -5,12 +5,6 @@
  * Description : Describe the function here.
 ************************************************************************************/
 
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using CoFramework.Tween;
-
 namespace CoFramework.Tween
 {
     public enum LoopType

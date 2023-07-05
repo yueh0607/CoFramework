@@ -1,5 +1,4 @@
 ﻿using CoFramework;
-using CoFramework.Events;
 using CoFramework.Pool;
 using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
@@ -37,7 +36,7 @@ public class Test : MonoBehaviour
         //await res.InitializeAsync();
         var pool = Framework.GetModule<PoolModule>();
 
-        
+
         pool.CreatePool("cube", "Cube", 10, 500);
 
         List<GameObject> xs = new();

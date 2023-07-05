@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using CoFramework.Tasks;
 using CoFramework.Tween.EaseCurves;
-using CoFramework.Tasks;
+using System;
+using System.Collections;
+using UnityEngine;
 
 namespace CoFramework.Tween
 {

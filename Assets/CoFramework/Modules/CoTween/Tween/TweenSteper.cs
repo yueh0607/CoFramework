@@ -1,8 +1,5 @@
 ﻿using CoFramework.RefBuild;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace CoFramework.Tween
 {
@@ -17,7 +14,7 @@ namespace CoFramework.Tween
 
     }
 
-    public abstract class TweenSteper<T> :ISteper where T : IEquatable<T>
+    public abstract class TweenSteper<T> : ISteper where T : IEquatable<T>
     {
         /// <summary>
         /// 步进起始
@@ -32,15 +29,15 @@ namespace CoFramework.Tween
         /// 步进当前
         /// </summary>
         public BindableProperty<T> Current { get; set; } = null;
-   
+
         /// <summary>
         /// 推进
         /// </summary>
         /// <param name="step"></param>
         public abstract void MoveNext(float step);
-       
 
-        
+
+
 
     }
 }

@@ -1,14 +1,13 @@
 ﻿using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace CoFramework.UI
 {
-    [ModuleDepends(typeof(UIModuleCreateParameters),typeof(ResModule),typeof(TaskModule))]
+    [ModuleDepends(typeof(UIModuleCreateParameters), typeof(ResModule), typeof(TaskModule))]
     public class UIModule : IModule
     {
         public GameObject UIRoot { get; private set; }
@@ -93,12 +92,12 @@ namespace CoFramework.UI
         private readonly object InitializeLocker = new object();
         private async CoTask Initialize()
         {
-            if(AsyncMonitor.IsLocked(InitializeLocker))
+            if (AsyncMonitor.IsLocked(InitializeLocker))
             {
                 await CoTask.CompletedTask; return;
             }
             else AsyncMonitor.Enter(InitializeLocker);
-            
+
             var res = Framework.GetModule<ResModule>();
 
             //UIRoot
@@ -119,7 +118,7 @@ namespace CoFramework.UI
 
                 Canvas canvas = UIRoot.GetComponent<Canvas>();
                 if (canvas == null) throw new InvalidOperationException("UIRoot require Canvas Component");
-                if(!canvas.isRootCanvas) throw new InvalidOperationException("UIRoot muse be rootCanvas");
+                if (!canvas.isRootCanvas) throw new InvalidOperationException("UIRoot muse be rootCanvas");
                 canvas.worldCamera = UICamera;
             }
 

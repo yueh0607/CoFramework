@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -61,7 +60,7 @@ namespace CoFramework.Utility
             }
             return members;
         }
-        
+
         /// <summary>
         /// 获取全部公开实例字段
         /// </summary>
@@ -99,7 +98,7 @@ namespace CoFramework.Utility
             {
                 if (p.CanRead && p.CanWrite) properties.Add(p);
             }
-           
+
             return properties;
         }
 
@@ -109,7 +108,7 @@ namespace CoFramework.Utility
         /// <param name="name"></param>
         /// <param name="origin"></param>
         /// <returns></returns>
-        public static Type GetFieldOrPropertyTypeByName(string name,object origin)
+        public static Type GetFieldOrPropertyTypeByName(string name, object origin)
         {
             return GetFieldOrPropertyTypeByName(name, origin.GetType());
         }
@@ -123,7 +122,7 @@ namespace CoFramework.Utility
         {
             var fi = origin.GetField(name);
             var pi = origin.GetProperty(name);
-            return fi?.FieldType??pi?.PropertyType;
+            return fi?.FieldType ?? pi?.PropertyType;
         }
         /// <summary>
         /// 找到物体全部的组件
@@ -154,16 +153,16 @@ namespace CoFramework.Utility
         }
 
 
-        public static List<Type> GetPublicTypeFromAllAssemblies(Func<Type,bool> condition)
+        public static List<Type> GetPublicTypeFromAllAssemblies(Func<Type, bool> condition)
         {
             List<Type> result = new List<Type>();
             Assembly[] ass = AppDomain.CurrentDomain.GetAssemblies();
-            for(int i=0;i<ass.Length;i++)
+            for (int i = 0; i < ass.Length; i++)
             {
                 var assType = ass[i].GetExportedTypes();
-                foreach(var type in assType)
+                foreach (var type in assType)
                 {
-                    if(condition(type))
+                    if (condition(type))
                     {
                         result.Add(type);
                     }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEditor;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 namespace CoFramework.RefBuild.Editor
@@ -35,7 +34,7 @@ namespace CoFramework.RefBuild.Editor
             path = BuilderPreference.instance.defaultPath;
             increase = BuilderPreference.instance.increase;
             part = BuilderPreference.instance.part;
-            nameSpaceName = BuilderPreference.instance.defaultNameSpace; 
+            nameSpaceName = BuilderPreference.instance.defaultNameSpace;
             autoCreatePath = BuilderPreference.instance.autoCreatePath;
             awakeInit = BuilderPreference.instance.awakrInit;
         }
@@ -46,7 +45,7 @@ namespace CoFramework.RefBuild.Editor
             BuilderPreference.instance.part = part;
             BuilderPreference.instance.defaultNameSpace = nameSpaceName;
             BuilderPreference.instance.autoCreatePath = autoCreatePath;
-            BuilderPreference.instance.awakrInit= awakeInit;
+            BuilderPreference.instance.awakrInit = awakeInit;
 
         }
 
@@ -128,8 +127,8 @@ namespace CoFramework.RefBuild.Editor
                     }
 
                 //路径合成
-                string filePath = Application.dataPath.Substring(0, Application.dataPath.Length-"Assets".Length)
-                    +path.TrimEnd('/') +"/"+ className + ".cs";
+                string filePath = Application.dataPath.Substring(0, Application.dataPath.Length - "Assets".Length)
+                    + path.TrimEnd('/') + "/" + className + ".cs";
                 //构建写入
                 Build(filePath, target, nameSpaceName, className, increase, part);
                 //导入资源
@@ -201,7 +200,7 @@ namespace CoFramework.RefBuild.Editor
             if (!Directory.Exists(Path.GetDirectoryName(buildPath))) Directory.CreateDirectory(Path.GetDirectoryName(buildPath));
             if (!File.Exists(buildPath)) File.Create(buildPath);
             Debug.Log("TryBuild :" + buildPath);
-            using (StreamWriter writer = new StreamWriter(buildPath,false,Encoding.ASCII))
+            using (StreamWriter writer = new StreamWriter(buildPath, false, Encoding.ASCII))
             {
                 StringBuilder fields_builder = new StringBuilder();
                 foreach (string str in buildField)
@@ -249,17 +248,17 @@ namespace #NAMESPACE#
                 model = model.Replace("#NAMESPACE#", _namespace);
                 model = model.Replace("#CLASS#", _class);
                 model = model.Replace("#PART#", part ? "partial " : string.Empty);
-             
-                    model = model.Replace("#NEWFUNC#",awakeInit?
+
+                model = model.Replace("#NEWFUNC#", awakeInit ?
 @"
         private void Awake()
         {
             InitRefs();
         }
-":string.Empty);
-                
+" : string.Empty);
 
-                
+
+
 
                 writer.Write(model);
 

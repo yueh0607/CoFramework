@@ -1,13 +1,11 @@
 ﻿using CoFramework.RefBuild;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CoFramework.Tween
 {
     public static class Tween_Unity
     {
-        public static Tween MoveTo(this Transform transform,Vector3 position,float duration)
+        public static Tween MoveTo(this Transform transform, Vector3 position, float duration)
         {
             BindableProperty<Vector3> pos = new BindableProperty<Vector3>(() => transform.position, (x) => transform.position = x, false);
             return pos.To<Vector3>(position).SetDuration(duration);

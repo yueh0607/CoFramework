@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
 namespace CoFramework.EngineEditor
 {
@@ -17,10 +13,10 @@ namespace CoFramework.EngineEditor
         }
 
 
-        
+
         private void OnGUI()
         {
-            
+
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CoFramework.Events
 {
 
-   [ModuleDepends]
+    [ModuleDepends]
     public class EventModule : IModule
     {
         //事件容器

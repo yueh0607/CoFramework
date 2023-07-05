@@ -3,7 +3,9 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Threading;
+#if !IS_WEBGL
 using System.Threading.Tasks;
+#endif
 
 namespace CoFramework.Tasks
 {
@@ -99,7 +101,7 @@ namespace CoFramework.Tasks
             return task;
         }
 
-
+#if !IS_WEBGL
 
 
         /// <summary>
@@ -209,6 +211,6 @@ namespace CoFramework.Tasks
             return coTask;
         }
 
-
+#endif
     }
 }

@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace CoFramework.Tween
+﻿namespace CoFramework.Tween
 {
     public class StringSteper : TweenSteper<string>
     {
 
-        private string longString =null;
+        private string longString = null;
 
         public string LongString
         {
@@ -25,9 +21,9 @@ namespace CoFramework.Tween
             int ed = ValueEnd.Length;
 
             int lt = Utility.LerpHelper.Lerp(st, ed, step);
-            
 
-            Current.Value = LongString.Substring(st,lt-st);
+
+            Current.Value = LongString.Substring(st, lt - st);
 
 
         }
