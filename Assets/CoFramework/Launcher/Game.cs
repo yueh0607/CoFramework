@@ -28,7 +28,7 @@ public class Game : MonoSingleton<Game>
         Framework.CreateModule<EventModule>(new EventModuleCreateParameters());
         Framework.CreateModule<ResModule>(new ResModuleCreateParameters() { });
         Framework.CreateModule<PoolModule>(null);
-
+        Framework.CreateModule<TweenModule>(null);
         var res = Framework.GetModule<ResModule>();
         await res.InitializeAsync();
 

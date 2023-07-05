@@ -2,11 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using UnityEngine;
 
 namespace CoFramework.FSM 
 {
-    public class StringMachine:IMachine
+    public class StringMachine//:IMachine
     {
         private IState current =null;
         public IState Current=>current;
@@ -127,13 +128,14 @@ namespace CoFramework.FSM
             current = states[name];
         }
 
-        public void OnStartMachine()
-        {
+        //public void OnStartMachine()
+        //{
 
-        }
+        //}
 
-        public void OnUpdateMahcine()
+        void OnUpdateMahcine()
         {
+            if (current == null) return;
             if (!map.ContainsKey(currentName)) return;
             var trans = map[currentName];
             foreach(var t in trans)
@@ -148,9 +150,18 @@ namespace CoFramework.FSM
             }
         }
 
-        public void OnDestroyMachine()
+
+        public StringMachine()
         {
-            
+            Framework.Update += OnUpdateMahcine;
         }
+        ~StringMachine()
+        {
+            Framework.Update -= OnUpdateMahcine;
+        }
+        //public void OnDestroyMachine()
+        //{
+            
+        //}
     }
 }

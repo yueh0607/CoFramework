@@ -1,7 +1,9 @@
 ﻿using CoFramework;
 using CoFramework.Pool;
+using CoFramework.RefBuild;
 using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
+using CoFramework.Tween;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +22,7 @@ public class Test : MonoBehaviour
 {
 
 
-
+    BindableProperty<string> str = new("Hello");
 
     async void Start()
     {
@@ -29,7 +31,14 @@ public class Test : MonoBehaviour
         //Framework.CreateModule<EventModule>(new EventModuleCreateParameters());
         //Framework.CreateModule<ResModule>(new ResModuleCreateParameters() { });
         //Framework.CreateModule<PoolModule>(null);
+        var tween = str.To("0HelloWorld").SetDuration(5);
+        tween.Play();
+        str.OnPropertyChanged += (x, y) =>
+        {
+            Debug.Log(y);
+        };
 
+        return;
         await Game.Instance.InitTask;
 
         var res = Framework.GetModule<ResModule>();

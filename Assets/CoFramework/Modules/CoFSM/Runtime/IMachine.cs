@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMachine 
-{
-    public void OnStartMachine();
+//public interface IMachine 
+//{
+//    public void OnStartMachine();
 
-    public void OnUpdateMahcine();
+//    public void OnUpdateMahcine();
 
-    public void OnDestroyMachine();
-}
+//    public void OnDestroyMachine();
+//}

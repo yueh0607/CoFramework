@@ -1,5 +1,6 @@
 ﻿using CoFramework.RefBuild;
 using System;
+using UnityEngine;
 
 namespace CoFramework.Tween
 {
@@ -10,7 +11,7 @@ namespace CoFramework.Tween
         Backward = -1
     }
 
-    public class Tween
+    public class Tween:CoObject
     {
         /// <summary>
         /// 时光机器-穿梭时空！！！欧耶！￥%呀呼
@@ -25,6 +26,7 @@ namespace CoFramework.Tween
         public void Play()
         {
             Machine.Enable = true;
+
         }
 
 
@@ -50,9 +52,11 @@ namespace CoFramework.Tween
 
         internal static Tween CreateFromPool<T>(T start, T end, BindableProperty<T> port) where T : IEquatable<T>
         {
+            Debug.Log("AAA");
             var tween = Framework.GlobalAllocate<Tween>();
             var steper = StrategyEx.GetSteperWithParm<T>(start, end, port);
             var temp_machine = Framework.GlobalAllocate<TimeMachine>();
+            Framework.Update += temp_machine.Update;
 
             temp_machine.Steper = steper;
 
@@ -72,5 +76,7 @@ namespace CoFramework.Tween
             Machine = null;
         }
 
+    
+        
     }
 }

@@ -39,7 +39,7 @@ namespace CoFramework.RefBuild
         private bool _loopListen = false;
         public BindableProperty(Func<T> getter, Action<T> setter, bool loopListen = false)
         {
-            mode = false;
+            mode = true;
             _getter = getter;
             _setter = setter;
             _loopListen = loopListen;
@@ -50,7 +50,7 @@ namespace CoFramework.RefBuild
         }
         public BindableProperty(T initValue)
         {
-            mode = true;
+            mode = false;
             _value = initValue;
         }
         ~BindableProperty()

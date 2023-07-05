@@ -109,9 +109,17 @@ namespace CoFramework.Tween
         /// 时光机更新
         /// </summary>
 
+
+
+        ~TimeMachine()
+        {
+            Framework.Update -= Update;
+        }
         internal void Update()
         {
+            UnityEngine.Debug.Log("aa");
             if (!Enable) return;
+           
             //在起始和终点插值
             TimeCurrent = Math.Clamp(TimeCurrent + Framework.deltaTime * Speed, TimeStart, TimeEnd);
             //步进
@@ -141,6 +149,7 @@ namespace CoFramework.Tween
         internal void Reset()
         {
             Enable = false;
+            Framework.Update -= Update;
             Framework.GlobalRecycle(Steper);
             Steper = null;
             TimeStart = 0;

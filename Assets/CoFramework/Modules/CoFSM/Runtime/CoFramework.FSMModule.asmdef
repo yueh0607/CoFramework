@@ -2,7 +2,8 @@
     "name": "CoFramework.FSMModule",
     "rootNamespace": "",
     "references": [
-        "GUID:9a7a55499f621a942ae658a1f282213c"
+        "GUID:9a7a55499f621a942ae658a1f282213c",
+        "GUID:0cdaf06515f76d847ba59b72bb868663"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

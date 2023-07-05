@@ -17,7 +17,7 @@ namespace CoFramework.Tween
             if (type == typeof(Vector2)) return Framework.GlobalAllocate<Vector2Steper>();
             if (type == typeof(Vector3)) return Framework.GlobalAllocate<Vector3Steper>();
             if (type == typeof(Color)) return Framework.GlobalAllocate<ColorSteper>();
-
+            if (type == typeof(String)) return Framework.GlobalAllocate<StringSteper>();
             throw new InvalidOperationException($"Do not Have Steper<{type}>!");
         }
 

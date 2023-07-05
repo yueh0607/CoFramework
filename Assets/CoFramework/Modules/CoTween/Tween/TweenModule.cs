@@ -1,7 +1,12 @@
 ﻿using CoFramework;
+using CoFramework.Tween;
+using System;
 
 public class TweenModule : IModule
 {
+
+ 
+
     public void OnCreate(CreateParameters parameters)
     {
 

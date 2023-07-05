@@ -126,6 +126,7 @@ namespace CoFramework
                     modules.TryEnqueue(key, module);
                 }
             }
+            Update?.Invoke();
         }
 
         #endregion

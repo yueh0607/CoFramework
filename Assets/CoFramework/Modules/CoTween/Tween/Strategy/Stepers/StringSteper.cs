@@ -4,7 +4,7 @@
     {
 
         private string longString = null;
-
+        private string shortString = null;
         public string LongString
         {
             get
@@ -13,19 +13,21 @@
                 return longString;
             }
         }
+        public string ShortString
+        {
+            get
+            {
+               shortString ??= ValueStart.Length <=ValueEnd.Length ? ValueStart : ValueEnd;
+                return shortString;
+            }
+        }
 
 
         public override void MoveNext(float step)
         {
-            int st = ValueStart.Length;
-            int ed = ValueEnd.Length;
-
-            int lt = Utility.LerpHelper.Lerp(st, ed, step);
-
-
-            Current.Value = LongString.Substring(st, lt - st);
-
-
+            if(!LongString.StartsWith(ValueStart)&&ShortString!=string.Empty)ValueStart = string.Empty;
+            Current.Value = LongString.Substring(0,
+                Utility.LerpHelper.Lerp(ValueStart.Length, ValueEnd.Length, step));
         }
     }
 }
