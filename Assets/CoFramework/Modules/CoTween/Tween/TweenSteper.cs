@@ -40,7 +40,7 @@ namespace CoFramework.Tween
         public abstract void MoveNext(float step);
        
 
-   
+        
 
     }
 }
