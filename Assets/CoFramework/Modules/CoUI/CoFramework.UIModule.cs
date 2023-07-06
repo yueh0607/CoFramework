@@ -90,11 +90,14 @@ namespace CoFramework.UI
 
 
         private readonly object InitializeLocker = new object();
+        private bool inited = false;
         private async CoTask Initialize()
         {
-            if (AsyncMonitor.IsLocked(InitializeLocker))
+        
+            if (inited||AsyncMonitor.IsLocked(InitializeLocker))
             {
-                await CoTask.CompletedTask; return;
+                await CoTask.CompletedTask;
+                return;
             }
             else AsyncMonitor.Enter(InitializeLocker);
 
@@ -122,7 +125,7 @@ namespace CoFramework.UI
                 canvas.worldCamera = UICamera;
             }
 
-
+            inited= true;
             AsyncMonitor.Exit(InitializeLocker);
         }
     }

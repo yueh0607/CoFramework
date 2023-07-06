@@ -9,6 +9,8 @@ namespace CoFramework.UI
     {
         public GameObject Panel { get; set; }
 
+        public CanvasGroup Group { get; set; }
+
         private bool loaded = false;
         private bool unloading = false;
         protected abstract CoTask OnOpen();
@@ -25,6 +27,7 @@ namespace CoFramework.UI
         {
             if (!loaded) throw new InvalidOperationException("Panel has been not loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
+            Group.alpha = 1;
             return OnOpen();
         }
 
@@ -33,19 +36,31 @@ namespace CoFramework.UI
         {
             if (!loaded) throw new InvalidOperationException("Panel has been not loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
+            Group.alpha = 0;
             return OnClose();
         }
 
         private Action updateAction = null;
         public async CoTask Load(string location)
         {
+            //条件检查
             if (loaded) throw new InvalidOperationException("Panel has been loaded.");
             if (unloading) throw new InvalidOperationException("Panel is unloading.");
+            //面板加载
             var res = Framework.GetModule<ResModule>();
             var handle = res.LoadAsync<GameObject>(location);
             await handle;
             var insHandle = handle.InstantiateAsync();
             Panel = insHandle.Result;
+            Group = Panel.GetComponent<CanvasGroup>();
+            if (Group == null) throw new ArgumentException("Panel must have canvas group");
+            //面板处理
+            GameObject.DontDestroyOnLoad(Panel);
+            var module = Framework.GetModule<UIModule>();
+            Panel.transform.SetParent(module.UIRoot.transform,true);
+ 
+
+            //生命周期
             handle.Release();
             await OnCreate();
             loaded = true;
@@ -61,6 +76,8 @@ namespace CoFramework.UI
             Framework.Update -= updateAction;
             await OnDestroy();
             GameObject.Destroy(Panel);
+            Panel= null;
+            Group= null;
             loaded = false;
         }
 
