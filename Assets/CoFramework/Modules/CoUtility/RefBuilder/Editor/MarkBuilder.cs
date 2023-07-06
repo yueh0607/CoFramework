@@ -6,7 +6,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace CoFramework.RefBuild.Editor
+namespace CoFramework.Utility.RefBuild.Editor
 {
     public class MarkBuilder : EditorWindow
     {
@@ -223,7 +223,7 @@ namespace CoFramework.RefBuild.Editor
  * UVersion : #VERSION#
  *******************************************************/
 using UnityEngine;
-using CoFramework.RefBuild;
+using CoFramework.Utility.RefBuild;
 
 namespace #NAMESPACE#
 {

@@ -8,8 +8,32 @@
     "PackageVersion": "Simulate",
     "AssetList": [
         {
+            "Address": "APanel",
+            "AssetPath": "Assets/Project/Art/APanel.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
+            "Address": "BPanel",
+            "AssetPath": "Assets/Project/Art/BPanel.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
             "Address": "Cube",
             "AssetPath": "Assets/Project/Art/Cube.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependIDs": []
+        },
+        {
+            "Address": "UIRoot",
+            "AssetPath": "Assets/Project/Art/UIRoot.prefab",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 0,

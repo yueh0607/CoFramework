@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoFramework.RefBuild
+namespace CoFramework.Utility.RefBuild
 {
     public class BindableProperty<T> where T : IEquatable<T>
     {

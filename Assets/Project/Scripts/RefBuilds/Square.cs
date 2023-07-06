@@ -4,7 +4,7 @@
  * UVersion : 2021.3.24f1c1
  *******************************************************/
 
-namespace CoFramework.RefBuild.Cache
+namespace CoFramework.Utility.RefBuild.Cache
 {
     public partial class Square : UnityEngine.MonoBehaviour
     {

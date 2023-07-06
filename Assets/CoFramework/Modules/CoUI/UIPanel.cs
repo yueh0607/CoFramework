@@ -11,6 +11,7 @@ namespace CoFramework.UI
 
         public CanvasGroup Group { get; set; }
 
+        public bool Loaded => loaded;
         private bool loaded = false;
         private bool unloading = false;
         protected abstract CoTask OnOpen();
@@ -51,6 +52,7 @@ namespace CoFramework.UI
             var handle = res.LoadAsync<GameObject>(location);
             await handle;
             var insHandle = handle.InstantiateAsync();
+            await insHandle;
             Panel = insHandle.Result;
             Group = Panel.GetComponent<CanvasGroup>();
             if (Group == null) throw new ArgumentException("Panel must have canvas group");
@@ -64,6 +66,7 @@ namespace CoFramework.UI
             handle.Release();
             await OnCreate();
             loaded = true;
+            Debug.Log("loaded");
             updateAction ??= Update;
             Framework.Update += updateAction;
         }

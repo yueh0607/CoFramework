@@ -1,11 +1,12 @@
 ﻿using CoFramework;
 using CoFramework.Pool;
-using CoFramework.RefBuild;
+using CoFramework.Utility.RefBuild;
 using CoFramework.ResourceManagement;
 using CoFramework.Tasks;
 using CoFramework.Tween;
 using System.Collections.Generic;
 using UnityEngine;
+using CoFramework.UI;
 
 /*模块依赖
  * 1.Framework
@@ -26,7 +27,13 @@ public class Test : MonoBehaviour
 
     async void Start()
     {
+        await Game.InitTask;
+        var module = Framework.GetModule<UIModule>();
+        await module.Open<APanel>();
 
+        await CoTask.Delay(3);
+        await module.Close<APanel>();
+        return;
         //Framework.CreateModule<TaskModule>(null);
         //Framework.CreateModule<EventModule>(new EventModuleCreateParameters());
         //Framework.CreateModule<ResModule>(new ResModuleCreateParameters() { });
@@ -39,7 +46,7 @@ public class Test : MonoBehaviour
         };
 
         return;
-        await Game.Instance.InitTask;
+        await Game.InitTask;
 
         var res = Framework.GetModule<ResModule>();
         //await res.InitializeAsync();

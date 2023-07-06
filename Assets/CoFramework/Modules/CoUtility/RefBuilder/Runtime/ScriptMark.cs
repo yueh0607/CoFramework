@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace CoFramework.RefBuild
+namespace CoFramework.Utility.RefBuild
 {
 
     public class ScriptMark : MonoBehaviour

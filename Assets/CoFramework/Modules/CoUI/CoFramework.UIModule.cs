@@ -36,14 +36,15 @@ namespace CoFramework.UI
 
 
         private Dictionary<Type, UIPanel> panels = new Dictionary<Type, UIPanel>();
-        private readonly object GetWindowLocker = new object();
-        public async CoTask<T> GetWindow<T>(bool single = true) where T : UIPanel
+        private Dictionary<Type ,object> locker= new Dictionary<Type ,object>();
+        public async CoTask<T> GetWindow<T>(bool single = false) where T : UIPanel
         {
+            Type type = typeof(T);
+            if (type.IsAbstract) throw new InvalidOperationException("Get Window don't accept abstract type");
             await Initialize();
-            using (await AsyncMonitor.Lock(GetWindowLocker))
+            if(!locker.ContainsKey(typeof(T))) locker.Add(typeof(T),new object());
+            using (await AsyncMonitor.Lock(locker[typeof(T)]))
             {
-                Type type = typeof(T);
-                if (type.IsAbstract) throw new InvalidOperationException("Get Window don't accept abstract type");
                 if (single)
                 {
                     T p = Activator.CreateInstance<T>();
@@ -56,23 +57,22 @@ namespace CoFramework.UI
                     {
                         T p = Activator.CreateInstance<T>();
                         panels.Add(type, p);
-                        await p.Load(type.Name);
+                       
                     }
-                    return (T)panels[type];
                 }
             }
+            if (!panels[type].Loaded)
+            {
+                await panels[type].Load(type.Name);
+            }
+            return (T)panels[type];
         }
 
         public async CoTask Open<T>() where T : UIPanel
         {
             await Initialize();
             Type type = typeof(T);
-            T panel;
-            if (!panels.ContainsKey(type))
-            {
-                panel = await GetWindow<T>();
-            }
-            else panel = (T)panels[type];
+            T panel = await GetWindow<T>();
             await panel.Open();
         }
         public async CoTask Close<T>() where T : UIPanel
@@ -82,9 +82,9 @@ namespace CoFramework.UI
             T panel;
             if (!panels.ContainsKey(type))
             {
-                throw new InvalidOperationException("Please Close a exist panel");
+                throw new InvalidOperationException("panel not exist");
             }
-            else panel = (T)panels[type];
+            panel = await GetWindow<T>();
             await panel.Close();
         }
 
@@ -93,13 +93,17 @@ namespace CoFramework.UI
         private bool inited = false;
         private async CoTask Initialize()
         {
-        
-            if (inited||AsyncMonitor.IsLocked(InitializeLocker))
+            if (inited)
             {
                 await CoTask.CompletedTask;
                 return;
             }
-            else AsyncMonitor.Enter(InitializeLocker);
+            if (AsyncMonitor.IsLocked(InitializeLocker))
+            {
+                await CoTask.CompletedTask;
+                return;
+            }
+            else AsyncMonitor.TryEnter(InitializeLocker);
 
             var res = Framework.GetModule<ResModule>();
 
@@ -109,7 +113,7 @@ namespace CoFramework.UI
             var insHandle = handle.InstantiateAsync();
             await insHandle;
             UIRoot = insHandle.Result;
-
+            GameObject.DontDestroyOnLoad(UIRoot);
             //UICamera
             if (_params.NeedUICamera)
             {
@@ -125,8 +129,8 @@ namespace CoFramework.UI
                 canvas.worldCamera = UICamera;
             }
 
-            inited= true;
-            AsyncMonitor.Exit(InitializeLocker);
+            inited = true;
+            AsyncMonitor.TryExit(InitializeLocker);
         }
     }
 }
