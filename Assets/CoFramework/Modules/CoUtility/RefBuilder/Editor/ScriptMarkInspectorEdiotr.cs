@@ -29,7 +29,7 @@ namespace CoFramework.EngineEditor
             serializedObject.Update();
 
             //反射组件
-            var components = ReflectionHelper.FindAllCompinents(((ScriptMark)serializedObject.targetObject).gameObject);
+            var components = ReflectionHelper.FindAllComponents(((ScriptMark)serializedObject.targetObject).gameObject);
             components.RemoveAll((x) => x.GetType() == typeof(ScriptMark));
             //生成选项
             List<string> comStr = ReflectionHelper.ComponentsToString(components);

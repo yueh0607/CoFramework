@@ -68,8 +68,11 @@ namespace CoFramework.Utility
         /// <returns></returns>
         public static List<FieldInfo> FindFields(object obj)
         {
-            Type type = obj.GetType();
+            return FindFields(obj.GetType());
+        }
 
+        public static List<FieldInfo> FindFields(Type type)
+        {
             FieldInfo[] fieldsArray = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
 
             List<FieldInfo> fields = new List<FieldInfo>();
@@ -77,10 +80,12 @@ namespace CoFramework.Utility
             foreach (FieldInfo p in fieldsArray)
             {
                 if (p.IsLiteral || p.IsInitOnly) continue;
+                fields.Add(p);
             }
 
             return fields;
         }
+
         /// <summary>
         /// 获取对象的全部公开实例可读可写属性
         /// </summary>
@@ -88,17 +93,16 @@ namespace CoFramework.Utility
         /// <returns></returns>
         public static List<PropertyInfo> FindProperty(object obj)
         {
-            Type type = obj.GetType();
-
+            return FindProperty(obj.GetType());
+        }
+        public static List<PropertyInfo> FindProperty(Type type)
+        {
             PropertyInfo[] pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
             List<PropertyInfo> properties = new List<PropertyInfo>();
-
             foreach (PropertyInfo p in pros)
             {
                 if (p.CanRead && p.CanWrite) properties.Add(p);
             }
-
             return properties;
         }
 
@@ -129,7 +133,7 @@ namespace CoFramework.Utility
         /// </summary>
         /// <param name="gameObject"></param>
         /// <returns></returns>
-        public static List<Component> FindAllCompinents(GameObject gameObject)
+        public static List<Component> FindAllComponents(GameObject gameObject)
         {
             Component[] components = gameObject.GetComponents<Component>();
 
